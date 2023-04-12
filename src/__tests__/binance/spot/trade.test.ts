@@ -115,7 +115,7 @@ describe("BinanceSpotTradeApi", () => {
   });
 
   describe("testNewOrder", () => {
-    test("Should test new buy market order", async () => {
+    test("Should test new order", async () => {
       const data = await api.testNewOrder({
         symbol: "BNBUSDT",
         side: "BUY",
@@ -124,48 +124,100 @@ describe("BinanceSpotTradeApi", () => {
       });
       expect(data).toBeDefined();
     });
+  });
 
-    test("Should test new sell market order", async () => {
-      const data = await api.testNewOrder({
+  describe("testNewLimitOrder", () => {
+    test("Should test new limit order", async () => {
+      const data = await api.testNewLimitOrder({
         symbol: "BNBUSDT",
-        side: "SELL",
-        type: "MARKET",
-        quantity: 1,
-      });
-      expect(data).toBeDefined();
-    });
-
-    test("Should test new sell limit order", async () => {
-      const data = await api.testNewOrder({
-        symbol: "BNBUSDT",
-        side: "SELL",
-        type: "LIMIT",
+        side: "BUY",
         quantity: 1,
         timeInForce: "GTC",
         price: 1000,
       });
       expect(data).toBeDefined();
     });
+  });
 
-    test("Should test new buy limit order", async () => {
-      const data = await api.testNewOrder({
+  describe("testNewMarketOrder", () => {
+    test("Should test new market order with quantity param", async () => {
+      const data = await api.testNewMarketOrder({
         symbol: "BNBUSDT",
         side: "BUY",
-        type: "LIMIT",
         quantity: 1,
-        timeInForce: "GTC",
-        price: 1000,
       });
       expect(data).toBeDefined();
     });
 
-    test("Should test new buy stop loss order", async () => {
-      const data = await api.testNewOrder({
-        symbol: "XRPETH",
+    test("Should test new market order with quoteOrderQty param", async () => {
+      const data = await api.testNewMarketOrder({
+        symbol: "BTCUSDT",
         side: "BUY",
-        type: "STOP_LOSS",
+        quoteOrderQty: 1000,
+      });
+      expect(data).toBeDefined();
+    });
+  });
+
+  describe("testNewStopLossLimitOrder", () => {
+    test("Should test new stop-loss limit order with stopPrice param", async () => {
+      const data = await api.testNewStopLossLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        timeInForce: "GTC",
         quantity: 1,
-        stopPrice: 3998.00000000,
+        price: 1000,
+        stopPrice: 100,
+      });
+      expect(data).toBeDefined();
+    });
+
+    test("Should test new stop-loss limit order with trailingDelta param", async () => {
+      const data = await api.testNewStopLossLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        timeInForce: "GTC",
+        quantity: 1,
+        price: 1000,
+        trailingDelta: 100,
+      });
+      expect(data).toBeDefined();
+    });
+  });
+
+  describe("testNewTakeProfitLimitOrder", () => {
+    test("Should test new take-profit limit order with stopPrice param", async () => {
+      const data = await api.testNewTakeProfitLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        timeInForce: "GTC",
+        quantity: 1,
+        price: 1000,
+        stopPrice: 100,
+      });
+      expect(data).toBeDefined();
+    });
+
+    test("Should test new take-profit limit order with trailingDelta param", async () => {
+      const data = await api.testNewTakeProfitLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        quantity: 1,
+        timeInForce: "GTC",
+        price: 1000,
+        trailingDelta: 100,
+      });
+      expect(data).toBeDefined();
+    });
+  });
+
+  describe("testNewLimitMakerOrder", () => {
+    test("Should test new limit maker order", async () => {
+      const data = await api.testNewLimitMakerOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        quantity: 1,
+        price: 1000,
       });
       expect(data).toBeDefined();
     });

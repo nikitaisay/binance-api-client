@@ -15,7 +15,12 @@ import {
   IQueryOcoOptions,
   IQueryOpenOcoOptions,
   IQueryOrderOptions, 
-  ITestNewOrderOptions
+  ITestNewLimitMakerOrderOptions, 
+  ITestNewLimitOrderOptions, 
+  ITestNewMarketOrderOptions, 
+  ITestNewOrderOptions,
+  ITestNewStopLossLimitOrderOptions,
+  ITestNewTakeProfitLimitOrderOptions
 } from "./types";
 
 export class BinanceSpotTradeApi extends BinanceApiClient {
@@ -155,6 +160,36 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     } catch (error) {
       this.throwError(error?.response?.data);
     }
+  }
+
+  async testNewLimitOrder(options: ITestNewLimitOrderOptions) {
+    return await this.testNewOrder({
+      ...options, type: "LIMIT",
+    });
+  }
+
+  async testNewMarketOrder(options: ITestNewMarketOrderOptions) {
+    return await this.testNewOrder({
+      ...options, type: "MARKET",
+    });
+  }
+
+  async testNewStopLossLimitOrder(options: ITestNewStopLossLimitOrderOptions) {
+    return await this.testNewOrder({
+      ...options, type: "STOP_LOSS_LIMIT",
+    });
+  }
+
+  async testNewTakeProfitLimitOrder(options: ITestNewTakeProfitLimitOrderOptions) {
+    return await this.testNewOrder({
+      ...options, type: "TAKE_PROFIT_LIMIT",
+    });
+  }
+
+  async testNewLimitMakerOrder(options: ITestNewLimitMakerOrderOptions) {
+    return await this.testNewOrder({
+      ...options, type: "LIMIT_MAKER",
+    });
   }
 
   async newOrder(options: INewOrderOptions) {

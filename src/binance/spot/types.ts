@@ -146,3 +146,45 @@ export interface ITestNewOrderOptions {
   newOrderRespType?: string; // Set the response JSON. ACK, RESULT, or FULL; MARKET and LIMIT order types default to FULL, all other orders default to ACK.
   recvWindow?: number; // default 5000 The value cannot be greater than 60000
 }
+
+export interface ITestNewLimitOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  timeInForce: string; // GTC/FOK/IOC
+  quantity: number; // Order quantity
+  price: number; // Order price
+}
+
+export interface ITestNewMarketOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  quantity?: number; // Order quantity
+  quoteOrderQty?: number; // Quote quantity
+}
+
+export interface ITestNewStopLossLimitOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  timeInForce: string; // GTC/FOK/IOC
+  quantity: number; // Order quantity
+  price: number; // Order price
+  stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+  trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. For more details on SPOT implementation on trailing stops, please refer to Trailing Stop FAQ
+}
+
+export interface ITestNewTakeProfitLimitOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  quantity: number; // Order quantity
+  timeInForce: string; // GTC/FOK/IOC
+  price: number; // Order price
+  stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+  trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. For more details on SPOT implementation on trailing stops, please refer to Trailing Stop FAQ
+}
+
+export interface ITestNewLimitMakerOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  quantity: number; // Order quantity
+  price: number; // Order price
+}
