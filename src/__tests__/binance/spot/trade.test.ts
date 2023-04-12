@@ -393,4 +393,25 @@ describe("BinanceSpotTradeApi", () => {
       expect(orders[0].orderId).toBe(order.orderId);
     });
   });
+
+  describe("cancelOrder", () => {
+    test("Should create new order and cancel it", async () => {
+      const order = await api.newTakeProfitLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        quantity: 0.1,
+        timeInForce: "GTC",
+        price: 1000,
+        trailingDelta: 100,
+      });
+
+      const canceledOrder = await api.cancelOrder({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+
+      expect(canceledOrder).toBeDefined();
+      expect(canceledOrder.orderId).toBe(order.orderId);
+    });
+  });
 });

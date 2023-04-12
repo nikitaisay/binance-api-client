@@ -6,6 +6,9 @@ import { IApiClientInitializeOptions } from "../types";
 
 import { 
   ICancelAllOpenOrdersOnSymbolOptions,
+  ICancelExistingOrderAndSendNewOptions,
+  ICancelOcoOptions,
+  ICancelOrderOptions,
   IGetAccountInformationOptions,
   IGetAccountTradeListOptions,
   IGetAllOrdersOptions,
@@ -13,6 +16,7 @@ import {
   INewLimitMakerOrderOptions,
   INewLimitOrderOptions,
   INewMarketOrderOptions,
+  INewOcoOptions,
   INewOrderOptions,
   INewStopLossLimitOrderOptions,
   INewTakeProfitLimitOrderOptions,
@@ -246,6 +250,66 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
       const res = await this.privateRequest({
         method: RequestType.DELETE,
         path: "/api/v3/openOrders",
+        params: options,
+      });
+      return res;
+    } catch (error) {
+      this.throwError(error?.response?.data);
+    }
+  }
+
+  async cancelOrder(options: ICancelOrderOptions) {
+    try {
+      const res = await this.privateRequest({
+        method: RequestType.DELETE,
+        path: "/api/v3/order",
+        params: options,
+      });
+      return res;
+    } catch (error) {
+      this.throwError(error?.response?.data);
+    }
+  }
+
+  //   Price Restrictions:
+  // SELL: Limit Price > Last Price > Stop Price
+  // BUY: Limit Price < Last Price < Stop Price
+  // Quantity Restrictions:
+  // Both legs must have the same quantity
+  // ICEBERG quantities however do not have to be the same.
+  // Order Rate Limit
+  // OCO counts as 2 orders against the order rate limit.
+  async newOco(options: INewOcoOptions) {
+    try {
+      const res = await this.privateRequest({
+        method: RequestType.POST,
+        path: "/api/v3/order/oco",
+        params: options,
+      });
+      return res;
+    } catch (error) {
+      this.throwError(error?.response?.data);
+    }
+  }
+
+  async cancelOco(options: ICancelOcoOptions) {
+    try {
+      const res = await this.privateRequest({
+        method: RequestType.POST,
+        path: "/api/v3/orderList",
+        params: options,
+      });
+      return res;
+    } catch (error) {
+      this.throwError(error?.response?.data);
+    }
+  }
+
+  async cancelExistingOrderAndSendNew(options: ICancelExistingOrderAndSendNewOptions) {
+    try {
+      const res = await this.privateRequest({
+        method: RequestType.POST,
+        path: "/api/v3/order/cancelReplace",
         params: options,
       });
       return res;
