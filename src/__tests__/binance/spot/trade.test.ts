@@ -222,4 +222,175 @@ describe("BinanceSpotTradeApi", () => {
       expect(data).toBeDefined();
     });
   });
+
+  describe("newOrder", () => {
+    test("Should create new order", async () => {
+      const order = await api.newOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        type: "MARKET",
+        quantity: 0.1,
+      });
+      const orders = await api.getAllOrders({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+  });
+
+  describe("newLimitOrder", () => {
+    test("Should create new limit order", async () => {
+      const order = await api.newLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        quantity: 0.01,
+        timeInForce: "GTC",
+        price: 1000,
+      });
+      const orders = await api.getAllOrders({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+  });
+
+  describe("newMarketOrder", () => {
+    test("Should create new market order with quantity param", async () => {
+      const order = await api.newMarketOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        quantity: 0.1,
+      });
+      const orders = await api.getAllOrders({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+
+    test("Should create new market order with quoteOrderQty param", async () => {
+      const order = await api.newMarketOrder({
+        symbol: "BTCUSDT",
+        side: "BUY",
+        quoteOrderQty: 10,
+      });
+
+      const orders = await api.getAllOrders({
+        symbol: "BTCUSDT",
+        orderId: order.orderId,
+      });
+
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+  });
+
+  describe("cancelAllOpenOrdersOnSymbol", () => {
+    test("Should cancel all open order on symbol", async () => {
+      const data = await api.cancelAllOpenOrdersOnSymbol({
+        symbol: "BNBUSDT",
+      });
+      expect(data).toBeDefined();
+    });
+  });
+
+  describe("newStopLossLimitOrder", () => {
+    test("Should create new stop-loss limit order with stopPrice param", async () => {
+      const order = await api.newStopLossLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        timeInForce: "GTC",
+        quantity: 0.1,
+        price: 1000,
+        stopPrice: 1000,
+      });
+      const orders = await api.getAllOrders({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+
+    test("Should create new stop-loss limit order with trailingDelta param", async () => {
+      const order = await api.newStopLossLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        timeInForce: "GTC",
+        quantity: 0.1,
+        price: 1000,
+        trailingDelta: 100,
+      });
+      const orders = await api.getAllOrders({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+  });
+
+  describe("newTakeProfitLimitOrder", () => {
+    test("Should create new take-profit limit order with stopPrice param", async () => {
+      const order = await api.newTakeProfitLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        timeInForce: "GTC",
+        quantity: 0.1,
+        price: 1000,
+        stopPrice: 100,
+      });
+      const orders = await api.getAllOrders({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+      
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+
+    test("Should create new take-profit limit order with trailingDelta param", async () => {
+      const order = await api.newTakeProfitLimitOrder({
+        symbol: "BNBUSDT",
+        side: "BUY",
+        quantity: 0.1,
+        timeInForce: "GTC",
+        price: 1000,
+        trailingDelta: 100,
+      });
+      const orders = await api.getAllOrders({
+        symbol: "BNBUSDT",
+        orderId: order.orderId,
+      });
+      
+      expect(order).toBeDefined();
+      expect(orders).toBeDefined();
+      expect(orders).toHaveLength(1);
+      expect(orders[0].orderId).toBe(order.orderId);
+    });
+  });
 });

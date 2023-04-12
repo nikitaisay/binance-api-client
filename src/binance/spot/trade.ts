@@ -5,11 +5,17 @@ import { BinanceApiClient } from "../httpClient";
 import { IApiClientInitializeOptions } from "../types";
 
 import { 
+  ICancelAllOpenOrdersOnSymbolOptions,
   IGetAccountInformationOptions,
   IGetAccountTradeListOptions,
   IGetAllOrdersOptions,
   IGetCurrentOpenOrdersOptions,
+  INewLimitMakerOrderOptions,
+  INewLimitOrderOptions,
+  INewMarketOrderOptions,
   INewOrderOptions,
+  INewStopLossLimitOrderOptions,
+  INewTakeProfitLimitOrderOptions,
   IQueryAllOcoOptions,
   IQueryCurrentOrderCountUsageOptions,
   IQueryOcoOptions,
@@ -197,6 +203,49 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
       const res = await this.privateRequest({
         method: RequestType.POST,
         path: "/api/v3/order",
+        params: options,
+      });
+      return res;
+    } catch (error) {
+      this.throwError(error?.response?.data);
+    }
+  }
+
+  async newLimitOrder(options: INewLimitOrderOptions) {
+    return await this.newOrder({
+      ...options, type: "LIMIT",
+    });
+  }
+
+  async newMarketOrder(options: INewMarketOrderOptions) {
+    return await this.newOrder({
+      ...options, type: "MARKET",
+    });
+  }
+
+  async newStopLossLimitOrder(options: INewStopLossLimitOrderOptions) {
+    return await this.newOrder({
+      ...options, type: "STOP_LOSS_LIMIT",
+    });
+  }
+
+  async newTakeProfitLimitOrder(options: INewTakeProfitLimitOrderOptions) {
+    return await this.newOrder({
+      ...options, type: "TAKE_PROFIT_LIMIT",
+    });
+  }
+
+  async newLimitMakerOrder(options: INewLimitMakerOrderOptions) {
+    return await this.newOrder({
+      ...options, type: "LIMIT_MAKER",
+    });
+  }
+
+  async cancelAllOpenOrdersOnSymbol(options: ICancelAllOpenOrdersOnSymbolOptions) {
+    try {
+      const res = await this.privateRequest({
+        method: RequestType.DELETE,
+        path: "/api/v3/openOrders",
         params: options,
       });
       return res;

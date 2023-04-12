@@ -153,6 +153,7 @@ export interface ITestNewLimitOrderOptions {
   timeInForce: string; // GTC/FOK/IOC
   quantity: number; // Order quantity
   price: number; // Order price
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
 }
 
 export interface ITestNewMarketOrderOptions {
@@ -160,6 +161,7 @@ export interface ITestNewMarketOrderOptions {
   side: "SELL" | "BUY";
   quantity?: number; // Order quantity
   quoteOrderQty?: number; // Quote quantity
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
 }
 
 export interface ITestNewStopLossLimitOrderOptions {
@@ -170,6 +172,7 @@ export interface ITestNewStopLossLimitOrderOptions {
   price: number; // Order price
   stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
   trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. For more details on SPOT implementation on trailing stops, please refer to Trailing Stop FAQ
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
 }
 
 export interface ITestNewTakeProfitLimitOrderOptions {
@@ -180,6 +183,7 @@ export interface ITestNewTakeProfitLimitOrderOptions {
   price: number; // Order price
   stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
   trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. For more details on SPOT implementation on trailing stops, please refer to Trailing Stop FAQ
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
 }
 
 export interface ITestNewLimitMakerOrderOptions {
@@ -187,4 +191,57 @@ export interface ITestNewLimitMakerOrderOptions {
   side: "SELL" | "BUY";
   quantity: number; // Order quantity
   price: number; // Order price
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
+}
+
+export interface INewLimitOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  timeInForce: string; // GTC/FOK/IOC
+  quantity: number; // Order quantity
+  price: number; // Order price
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
+}
+
+export interface INewMarketOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  quantity?: number; // Order quantity
+  quoteOrderQty?: number; // Quote quantity
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
+}
+
+export interface INewStopLossLimitOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  timeInForce: string; // GTC/FOK/IOC
+  quantity: number; // Order quantity
+  price: number; // Order price
+  stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+  trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. For more details on SPOT implementation on trailing stops, please refer to Trailing Stop FAQ
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
+}
+
+export interface INewTakeProfitLimitOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  quantity: number; // Order quantity
+  timeInForce: string; // GTC/FOK/IOC
+  price: number; // Order price
+  stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+  trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. For more details on SPOT implementation on trailing stops, please refer to Trailing Stop FAQ
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
+}
+
+export interface INewLimitMakerOrderOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  quantity: number; // Order quantity
+  price: number; // Order price
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
+}
+
+export interface ICancelAllOpenOrdersOnSymbolOptions {
+  symbol: string; // Trading symbol, e.g. BNBUSDT
+  recvWindow?: number; // default 5000 The value cannot be greater than 60000
 }
