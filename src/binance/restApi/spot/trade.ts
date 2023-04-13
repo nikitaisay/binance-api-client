@@ -1,4 +1,4 @@
-import { BINANCE_API_URLS } from "../../constants";
+import { BINANCE_API_URLS } from "../../../constants";
 
 import { RequestType } from "../enums";
 import { BinanceApiClient } from "../httpClient";

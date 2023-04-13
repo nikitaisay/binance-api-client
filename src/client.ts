@@ -1,14 +1,16 @@
-import { BinanceSpotMarketApi } from "./binance/spot/market";
-import { BinanceSpotTradeApi } from "./binance/spot/trade";
+import { BinanceSpotMarketApi } from "./binance/restApi/spot/market";
+import { BinanceSpotTradeApi } from "./binance/restApi/spot/trade";
 
-import { IApiClientInitializeOptions } from "./binance/types";
+import { IApiClientInitializeOptions } from "./binance/restApi/types";
 
 import { IClientInitializeOptions } from "./types";
 
 export class AlgoBinanceClient {
-  spot: {
-    market: BinanceSpotMarketApi;
-    trade: BinanceSpotTradeApi;
+  api: {
+    spot: {
+      market: BinanceSpotMarketApi;
+      trade: BinanceSpotTradeApi;
+    };
   };
 
   constructor(options: IClientInitializeOptions) {
@@ -20,7 +22,7 @@ export class AlgoBinanceClient {
   }
 
   private initializeBinanceSpotApi(options: IApiClientInitializeOptions) {
-    this.spot.market = new BinanceSpotMarketApi(options);
-    this.spot.trade = new BinanceSpotTradeApi(options);
+    this.api.spot.market = new BinanceSpotMarketApi(options);
+    this.api.spot.trade = new BinanceSpotTradeApi(options);
   }
 }

@@ -1,7 +1,7 @@
 import * as crypto from "crypto";
 import axios from "axios";
 
-import { DEFAULT_REQUEST_ERROR_MESSAGE } from "../constants";
+import { DEFAULT_REQUEST_ERROR_MESSAGE } from "../../constants";
 
 import { 
   httpClientError,
@@ -18,8 +18,8 @@ export class BinanceApiClient {
   testnetUrl: string;
   enableTestnet: boolean;
 
-  private apiKey: string;
-  private apiSecret: string;
+  private readonly apiKey: string;
+  private readonly apiSecret: string;
 
   constructor(options: IApiClientInitializeOptions) {
     this.enableTestnet = options.enableTestnet;
