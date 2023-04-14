@@ -6,6 +6,7 @@ export interface IRealTimeApiClientOptions {
 
 export interface IStreamOptions {
   callback: (data: any) => void;
+  id?: number;
 }
 
 export interface ISubscribeAggregateTradeStreamOptions extends IStreamOptions {

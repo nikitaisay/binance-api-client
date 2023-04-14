@@ -36,71 +36,113 @@ export class BinanceRealTimeApiClient {
 
   // The Aggregate Trade Streams push trade information that is aggregated for a single taker order.
   public subscribeAggregateTradeStream(options: ISubscribeAggregateTradeStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@aggTrade`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@aggTrade${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // The Trade Streams push raw trade information; each trade has a unique buyer and seller.
   public subscribeTradeStream(options: ISubscribeTradeStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@trade`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@trade${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // The Kline/Candlestick Stream push updates to the current klines/candlestick every second.
   public subscribeKlineCandlestickStream(options: ISubscribeKlineCandlestickStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@kline_${options.interval}`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@kline_${options.interval}${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // 24hr rolling window mini-ticker statistics. These are NOT the statistics of the UTC day, but a 24hr rolling window for the previous 24hrs.
   public subscribeIndividualSymbolMiniTickerStream(options: ISubscribeIndividualSymbolMiniTickerStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@miniTicker`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@miniTicker${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // 24hr rolling window mini-ticker statistics for all symbols that changed in an array. These are NOT the statistics of the UTC day, but a 24hr rolling window for the previous 24hrs. Note that only tickers that have changed will be present in the array.
   public subscribeAllMarketMiniTickersStream(options: ISubscribeAllMarketMiniTickersStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/!miniTicker@arr`);
+    const ws = new WebSocket(
+      `${this.ws_url}/!miniTicker@arr${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // 24hr rolling window ticker statistics for a single symbol. These are NOT the statistics of the UTC day, but a 24hr rolling window for the previous 24hrs.
   public subscribeIndividualSymbolTickerStream(options: ISubscribeIndividualSymbolTickerStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@ticker`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@ticker${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // 24hr rolling window ticker statistics for all symbols that changed in an array. These are NOT the statistics of the UTC day, but a 24hr rolling window for the previous 24hrs. Note that only tickers that have changed will be present in the array.
   public subscribeAllMarketTickersStream(options: ISubscribeAllMarketTickersStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/!ticker@arr`);
+    const ws = new WebSocket(
+      `${this.ws_url}/!ticker@arr${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
@@ -108,51 +150,81 @@ export class BinanceRealTimeApiClient {
   // Note: This stream is different from the <symbol>@ticker stream. The open time O always starts on a minute, while the closing time C is the current time of the update.
   // As such, the effective window might be up to 59999ms wider that <window_size>.
   public subscribeIndividualSymbolRollingWindowStatisticsStream(options: ISubscribeIndividualSymbolRollingWindowStatisticsStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@ticker_${options.window_size}`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@ticker_${options.window_size}${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // Rolling window ticker statistics for all market symbols, computed over multiple windows. Note that only tickers that have changed will be present in the array.
   public subscribeAllMarketRollingWindowStatisticsStream(options: ISubscribeAllMarketRollingWindowStatisticsStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/!ticker_${options.window_size}@arr`);
+    const ws = new WebSocket(
+      `${this.ws_url}/!ticker_${options.window_size}@arr${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // Pushes any update to the best bid or ask's price or quantity in real-time for a specified symbol.
   public subscribeIndividualSymbolBookTickerStream(options: ISubscribeIndividualSymbolBookTickerStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@bookTicker`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@bookTicker${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // Top bids and asks, Valid are 5, 10, or 20.
   public subscribePartialBookDepthStream(options: ISubscribePartialBookDepthStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@depth${options.levels}`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@depth${options.levels}${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 
   // Order book price and quantity depth updates used to locally manage an order book.
   public subscribeDiffDepthStream(options: ISubscribeDiffDepthStreamOptions) {
-    const ws = new WebSocket(`${this.ws_url}/${options.symbol.toLowerCase()}@depth@${options.updateSpeed}`);
+    const ws = new WebSocket(
+      `${this.ws_url}/${options.symbol.toLowerCase()}@depth@${options.updateSpeed}${options.id ? `?id=${options.id}` : ""}`
+    );
 
     ws.on("message", (message: WebSocket.Data) => {
-      const data = JSON.parse(message.toString());
-      options.callback(data);
+      try {
+        const data = JSON.parse(message.toString());
+        options.callback(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error.message);
+      }
     });
   }
 }
