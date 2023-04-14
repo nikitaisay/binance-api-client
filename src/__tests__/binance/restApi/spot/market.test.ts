@@ -5,7 +5,7 @@ import {
   beforeEach
 } from "@jest/globals";
 
-import { BinanceSpotMarketApi } from "../../../binance/restApi/spot/market";
+import { BinanceSpotMarketApi } from "../../../../binance/restApi/spot/market";
 
 describe("BinanceSpotMarketApi", () => {
   let api: BinanceSpotMarketApi;

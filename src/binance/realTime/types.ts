@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IRealTimeApiClientOptions {
   apiKey: string;
   apiSecret: string;
 }
 
 export interface IStreamOptions {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   callback: (data: any) => void;
   id?: number;
 }

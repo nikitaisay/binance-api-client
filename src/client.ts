@@ -1,3 +1,4 @@
+import { BinanceSpotDataStreamApi } from "./binance/restApi/spot/dataStream";
 import { BinanceSpotMarketApi } from "./binance/restApi/spot/market";
 import { BinanceSpotTradeApi } from "./binance/restApi/spot/trade";
 
@@ -10,6 +11,7 @@ export class AlgoBinanceClient {
     spot: {
       market: BinanceSpotMarketApi;
       trade: BinanceSpotTradeApi;
+      dataStream: BinanceSpotDataStreamApi;
     };
   };
 
@@ -24,5 +26,6 @@ export class AlgoBinanceClient {
   private initializeBinanceSpotApi(options: IApiClientInitializeOptions) {
     this.api.spot.market = new BinanceSpotMarketApi(options);
     this.api.spot.trade = new BinanceSpotTradeApi(options);
+    this.api.spot.dataStream = new BinanceSpotDataStreamApi(options);
   }
 }
