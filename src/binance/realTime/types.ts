@@ -1,12 +1,21 @@
 export interface IRealTimeApiClientOptions {
   apiKey: string;
   apiSecret: string;
+  enableTestnet: boolean;
+  applyListenKey?: boolean;
+}
+
+export type IListenKeyManagerOptions = Omit<IRealTimeApiClientOptions, "applyListenKey">;
+
+export interface IHandleStreamOptions {
+  url: string;
+  callback: (data: unknown) => void;
+  id: number;
 }
 
 export interface IStreamOptions {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  callback: (data: any) => void;
-  id?: number;
+  callback: (data: unknown) => void;
+  id: number;
 }
 
 export interface ISubscribeAggregateTradeStreamOptions extends IStreamOptions {
@@ -50,6 +59,11 @@ export interface ISubscribeIndividualSymbolBookTickerStreamOptions extends IStre
 export interface ISubscribePartialBookDepthStreamOptions extends IStreamOptions {
   symbol: string;
   levels: number;
+}
+
+export interface ISubscribeUserDataStreamOptions {
+  callback: (data: unknown) => void;
+  id: number;
 }
 
 export interface ISubscribeDiffDepthStreamOptions extends IStreamOptions {

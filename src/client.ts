@@ -1,13 +1,15 @@
+
+import { BinanceSpotRealTimeApi } from "./binance/realTime/spot";
+import { BinanceUserDataRealTimeApi } from "./binance/realTime/userData";
+
 import { BinanceSpotDataStreamApi } from "./binance/restApi/spot/dataStream";
 import { BinanceSpotMarketApi } from "./binance/restApi/spot/market";
 import { BinanceSpotTradeApi } from "./binance/restApi/spot/trade";
 
-import { IApiClientInitializeOptions } from "./binance/restApi/types";
-
 import { IClientInitializeOptions } from "./types";
 
 export class AlgoBinanceClient {
-  api: {
+  public api: {
     spot: {
       market: BinanceSpotMarketApi;
       trade: BinanceSpotTradeApi;
@@ -15,17 +17,29 @@ export class AlgoBinanceClient {
     };
   };
 
+  public realTime: {
+    spot: BinanceSpotRealTimeApi;
+    userData: BinanceUserDataRealTimeApi;
+  };
+
   constructor(options: IClientInitializeOptions) {
-    this.initializeBinanceClient({ ...options, });
-  }
+    this.api = {
+      spot: {
+        market: new BinanceSpotMarketApi(options),
+        trade: new BinanceSpotTradeApi(options),
+        dataStream: new BinanceSpotDataStreamApi(options),
+      },
+    };
 
-  private initializeBinanceClient(options: IApiClientInitializeOptions) {
-    this.initializeBinanceSpotApi(options);
-  }
-
-  private initializeBinanceSpotApi(options: IApiClientInitializeOptions) {
-    this.api.spot.market = new BinanceSpotMarketApi(options);
-    this.api.spot.trade = new BinanceSpotTradeApi(options);
-    this.api.spot.dataStream = new BinanceSpotDataStreamApi(options);
+    this.realTime = {
+      spot: new BinanceSpotRealTimeApi(options),
+      userData: new BinanceUserDataRealTimeApi(options),
+    };
   }
 }
+
+const a = new AlgoBinanceClient({
+  enableTestnet: false,
+  apiKey: "",
+  apiSecret: "",
+});

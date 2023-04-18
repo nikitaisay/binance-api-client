@@ -12,11 +12,11 @@ import {
 
 import { RequestType } from "./enums";
 
-export class BinanceApiClient {
-  url: string;
-  baseApiUrl: string;
-  testnetUrl: string;
-  enableTestnet: boolean;
+export abstract class BinanceApiClient {
+  protected url: string;
+  protected baseApiUrl: string;
+  protected testnetUrl: string;
+  protected enableTestnet: boolean;
 
   private readonly apiKey: string;
   private readonly apiSecret: string;
@@ -101,12 +101,12 @@ export class BinanceApiClient {
     return await axios.request(config);
   }
 
-  throwError(error: httpClientError) {
+  protected throwError(error: httpClientError) {
     console.log(error);
     throw new Error(error?.message || DEFAULT_REQUEST_ERROR_MESSAGE);
   }
 
-  async publicRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
+  protected async publicRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
     return await this.request({
       ...options,
       params: options.params,
@@ -114,7 +114,7 @@ export class BinanceApiClient {
     });
   }
 
-  async keyedRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
+  protected async keyedRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
     return await this.request({ 
       ...options,
       params: options.params,
@@ -125,7 +125,7 @@ export class BinanceApiClient {
     });
   }
 
-  async privateRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
+  protected async privateRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
     return await this.signedRequest<P, D>(
       options.method, 
       options.path, 

@@ -17,5 +17,8 @@ export const BINANCE_API_URLS = {
     BASE: "https://dapi.binance.com",
     TESTNET: "https://testnet.binancefuture.com",
   },
-  WEBSOCKET_API: "wss://stream.binance.com:9443",
+  WEBSOCKET_SPOT_API: {
+    BASE: "wss://stream.binance.com:9443/ws",
+    TESTNET: "wss://testnet.binance.vision/ws",
+  },
 };
