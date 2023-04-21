@@ -8,7 +8,7 @@ import { BinanceSpotTradeApi } from "./binance/restApi/spot/trade";
 
 import { IClientInitializeOptions } from "./types";
 
-export class AlgoBinanceClient {
+export class BinanceApiClient {
   public api: {
     spot: {
       market: BinanceSpotMarketApi;
