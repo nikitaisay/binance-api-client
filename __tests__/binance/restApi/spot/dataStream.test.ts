@@ -1,11 +1,4 @@
-import { 
-  test, 
-  describe, 
-  expect,
-  beforeEach
-} from "@jest/globals";
-
-import { BinanceSpotDataStreamApi } from "../../../../binance/restApi/spot/dataStream";
+import { BinanceSpotDataStreamApi } from "../../../../lib/binance/restApi/spot/dataStream";
 
 describe("BinanceSpotDataStreamApi", () => {
   let api: BinanceSpotDataStreamApi;

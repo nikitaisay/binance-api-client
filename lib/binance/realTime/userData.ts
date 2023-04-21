@@ -4,7 +4,7 @@ import { BinanceRealTimeApiClient } from "./realTimeClient";
 
 import { 
   IRealTimeApiClientOptions, 
-  ISubscribeUserDataStreamOptions 
+  TSubscribeUserDataStreamOptions 
 } from "./types";
 
 export class BinanceUserDataRealTimeApi extends BinanceRealTimeApiClient {
@@ -16,11 +16,11 @@ export class BinanceUserDataRealTimeApi extends BinanceRealTimeApiClient {
     this.applyListenKey = true;
   }
 
-  public subscribeUserDataStream(options: ISubscribeUserDataStreamOptions) {
+  public subscribeUserDataStream(options: TSubscribeUserDataStreamOptions) {
     this.handleStream({
+      ...options,
       url: this.ws_url,
-      callback: options.callback,
-      id: options.id,
+      type: "userData",
     });
   }
 }

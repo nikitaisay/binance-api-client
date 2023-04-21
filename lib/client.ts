@@ -37,9 +37,3 @@ export class AlgoBinanceClient {
     };
   }
 }
-
-const a = new AlgoBinanceClient({
-  enableTestnet: false,
-  apiKey: "",
-  apiSecret: "",
-});

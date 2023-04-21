@@ -2,21 +2,22 @@
   "name": "binance_api_client",
   "version": "1.0.0",
   "description": "JavaScript library for interacting with the Binance API",
-  "main": "src/index.js",
+  "main": "index.ts",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rm -rf ./dist && webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nikitaisay/binance_api_client.git"
   },
   "keywords": [
-    "JavaScript",
-    "Binance",
-    "TypeScript",
-    "Cryptocurrencies",
-    "AlgoTrading"
+    "tradingBots",
+    "cryptocurrencies",
+    "algoTrading"
   ],
+  "typings": "./index.d.ts",
   "author": "Nikita Isay",
   "license": "ISC",
   "bugs": {
@@ -30,8 +31,12 @@
     "dotenv": "^16.0.3",
     "ws": "^8.13.0"
   },
+  "contributors": [
+    "Nikita Isay (https://github.com/nikitaisay)"
+  ],
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
+    "@types/jest": "^29.5.1",
     "@types/ws": "^8.5.4",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
@@ -39,7 +44,11 @@
     "eslint-plugin-import": "^2.27.5",
     "jest": "^29.5.0",
     "ts-jest": "^29.1.0",
+    "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "webpack": "^5.80.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.3"
   }
 }

@@ -1,15 +1,13 @@
 import * as crypto from "crypto";
 import axios from "axios";
 
-import { DEFAULT_REQUEST_ERROR_MESSAGE } from "../../constants";
-
+import { BinanceApiError } from "./binanceApiError";
 import { 
   httpClientError,
   IApiClientInitializeOptions,
   IHttpClientRequestConfig, 
   IHttpClientRequestOptions 
 } from "./types";
-
 import { RequestType } from "./enums";
 
 export abstract class BinanceApiClient {
@@ -103,7 +101,7 @@ export abstract class BinanceApiClient {
 
   protected throwError(error: httpClientError) {
     console.log(error);
-    throw new Error(error?.message || DEFAULT_REQUEST_ERROR_MESSAGE);
+    throw new BinanceApiError(`Error making API call: ${error}`);
   }
 
   protected async publicRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {

@@ -2,7 +2,8 @@ import WebSocket from "ws";
 
 import { 
   IHandleStreamOptions,
-  IRealTimeApiClientOptions 
+  IRealTimeApiClientOptions, 
+  TWebSocketMapItem
 } from "./types";
 import ListenKeyManager from "./listenKeyManager";
 
@@ -13,7 +14,7 @@ export abstract class BinanceRealTimeApiClient {
   protected applyListenKey = false;
 
   private readonly listenKeyManager: ListenKeyManager;
-  private wsConnections: Map<string, WebSocket> = new Map();
+  private wsConnections: Map<string, TWebSocketMapItem> = new Map();
 
   constructor(options: IRealTimeApiClientOptions) {
     this.listenKeyManager = new ListenKeyManager(options);
@@ -25,14 +26,36 @@ export abstract class BinanceRealTimeApiClient {
     }
 
     const ws = new WebSocket(this.getStreamUrl(options.url));
-    this.wsConnections.set(options.id.toString(), ws);
+
+    this.wsConnections.set(`${options.id}`, { 
+      ws, 
+      type: options.type, 
+    });
 
     ws.on("error", (error) => {
-      console.error("WebSocket error:", error);
+      if (options.errorCallback) {
+        options.errorCallback(error);
+      }
+    });
+
+    ws.on("open", () => {
+      const payload = JSON.stringify({ 
+        id: options.id, 
+        method: "SUBSCRIBE",
+        params: [options.type],
+      });
+
+      ws.send(payload);
+
+      if (options.connectionCallback) {
+        options.connectionCallback();
+      }
     });
     
     ws.on("close", (code, reason) => {
-      console.warn(`WebSocket closed with code ${code} and reason: ${reason}`);
+      if (options.closeCallback) {
+        options.closeCallback(code, reason.toString());
+      }
     });
     
     ws.on("message", (message: WebSocket.Data) => {
@@ -44,7 +67,13 @@ export abstract class BinanceRealTimeApiClient {
         console.error("Error parsing JSON data:", error.message);
       }
 
-      options.callback(data);
+      if (
+        typeof data === "object"
+        && "id" in data 
+        && data.id === options.id
+      ) {
+        options.callback(data);
+      }
     });
   }
 
@@ -67,18 +96,40 @@ export abstract class BinanceRealTimeApiClient {
   }
 
   public closeStream(id: string): void {
-    const ws = this.wsConnections.get(id);
+    const connection = this.wsConnections.get(id);
 
-    if (ws) {
-      ws.close();
+    if (connection) {
+      const unsubscribeMsg = {
+        method: "UNSUBSCRIBE",
+        params: [connection.type],
+        id: parseInt(id),
+      };
+
+      connection.ws.send(JSON.stringify(unsubscribeMsg));
+      connection.ws.close();
       this.wsConnections.delete(id);
     }
   }
 
   public closeAllStreams(): void {
-    this.wsConnections.forEach((ws, id) => {
-      ws.close();
+    this.wsConnections.forEach((connection, id) => {
+      const unsubscribeMsg = {
+        method: "UNSUBSCRIBE",
+        params: [connection.type],
+        id: parseInt(id),
+      };
+
+      connection.ws.send(JSON.stringify(unsubscribeMsg));
+      connection.ws.close();
       this.wsConnections.delete(id);
     });
+  }
+
+  public getStreamById(id: number): WebSocket | undefined {
+    const connection = this.wsConnections.get(`${id}`);
+
+    if (connection) {
+      return connection.ws;
+    }
   }
 }

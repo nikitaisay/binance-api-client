@@ -1,6 +1,6 @@
 import { BinanceSpotDataStreamApi } from "../restApi/spot/dataStream";
 
-import { IListenKeyManagerOptions } from "./types";
+import { TListenKeyManagerOptions } from "./types";
 
 export default class ListenKeyManager {
   private readonly binanceSpotDataStreamApi: BinanceSpotDataStreamApi;
@@ -9,7 +9,7 @@ export default class ListenKeyManager {
   public listenKey: string;
   public creationTimestamp: number;
 
-  constructor(options: IListenKeyManagerOptions) {
+  constructor(options: TListenKeyManagerOptions) {
     this.binanceSpotDataStreamApi = new BinanceSpotDataStreamApi(options);
   }
 

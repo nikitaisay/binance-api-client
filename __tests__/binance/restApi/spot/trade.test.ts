@@ -1,11 +1,4 @@
-import { 
-  test, 
-  describe, 
-  expect,
-  beforeEach
-} from "@jest/globals";
-
-import { BinanceSpotTradeApi } from "../../../../binance/restApi/spot/trade";
+import { BinanceSpotTradeApi } from "../../../../lib/binance/restApi/spot/trade";
 
 describe("BinanceSpotTradeApi", () => {
   let api: BinanceSpotTradeApi;
