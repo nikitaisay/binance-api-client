@@ -306,3 +306,162 @@ export interface ICancelOcoOptions {
 export interface IListenKeyRequestOptions {
   listenKey: string;
 }
+
+export interface IGetDailyAccountSnapshotOptions {
+  type: "SPOT" | "MARGIN" | "FUTURES";
+  startTime?: number;
+  endTime?: number;
+  limit?: number;
+  recvWindow?: number;
+}
+
+export interface IWithdrawOptions {
+  coin: string; // Coin name
+  withdrawOrderId?: string; // Client id for withdraw
+  network?: string; // Get the value from `GET /sapi/v1/capital/config/getall`
+  address: string;
+  addressTag?: string; // Secondary address identifier for coins like XRP,XMR etc.
+  amount: number;
+  transactionFeeFlag?: boolean; // When making internal transfer `true` ->  returning the fee to the destination account; `false` -> returning the fee back to the departure account.
+  name?: string;
+  walletType?: number; // The wallet type for withdraw，0-Spot wallet, 1- Funding wallet. Default is Spot wallet
+  recvWindow?: number;
+}
+
+export interface IGetDepositHistoryOptions {
+  coin?: string;
+  status?: number; // 0(0:pending,6: credited but cannot withdraw, 7=Wrong Deposit,8=Waiting User confirm, 1:success)
+  startTime?: number;
+  endTime?: number;
+  offset?: number;
+  limit?: number;
+  recvWindow?: number;
+}
+
+export interface IGetWithdrawHistoryOptions {
+  coin?: string;
+  withdrawOrderId?: string;
+  status?: number; // * `0` - Email Sent `1` - Cancelled `2` - Awaiting Approval `3` - Rejected `4` - Processing `5` - Failure `6` - Completed
+  startTime?: number;
+  endTime?: number;
+  offset?: number;
+  limit?: number;
+  recvWindow?: number;
+}
+
+export interface IGetDepositAddressOptions {
+  coin: string;
+  network?: string;
+  recvWindow?: number;
+}
+
+export interface IGetAccountStatusOptions {
+  recvWindow?: number;
+}
+
+export interface IGetAccountAPITradingStatusOptions {
+  recvWindow?: number;
+}
+
+export interface IGetDustLogOptions {
+  startTime?: number;
+  endTime?: number;
+  recvWindow?: number;
+}
+
+export interface IGetAssetsThatCanBeConvertedIntoBNBOptions {
+  recvWindow?: number;
+}
+
+export interface IDustTransferOptions {
+  recvWindow?: number;
+  asset: string; // The asset being converted. For example, asset=BTC&asset=USDT
+}
+
+export interface IGetAssetDividendRecordOptions {
+  recvWindow?: number;
+  asset?: string;
+  startTime?: number;
+  endTime?: number;
+  limit?: number;
+}
+
+export interface IGetAsseDetailOptions {
+  recvWindow?: number;
+  asset?: string;
+}
+
+export interface IGetTradeFeeOptions {
+  recvWindow?: number;
+  symbol?: string;
+}
+
+export interface IQueryUserUniversalTransferHistoryOptions {
+  type: string; // Universal transfer type
+  startTime?: number;
+  endTime?: number;
+  current?: number; // Current querying page. Start from 1. Default:1
+  size?: number; // Default:10 Max:100
+  fromSymbol?: string; // Must be sent when type are ISOLATEDMARGIN_MARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN
+  toSymbol?: string; // Must be sent when type are MARGIN_ISOLATEDMARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN
+  recvWindow?: number;
+  symbol?: string;
+}
+
+export interface IUserUniversalTransferHistoryOptions {
+  type: string; // Universal transfer type
+  asset: string;
+  amount: number;
+  fromSymbol?: string;
+  toSymbol?: string;
+  recvWindow?: number;
+}
+
+export interface IFundingWalletOptions {
+  asset?: string;
+  needBtcValuation?: string; // true or false
+  recvWindow?: number;
+}
+
+export interface IGetUserAssetOptions {
+  asset?: string;
+  needBtcValuation?: string; // true or false
+  recvWindow?: number;
+}
+
+export interface IGetAPIKeyPermissionOptions {
+  recvWindow?: number;
+}
+
+export interface IBUSDConvertTransferOptions {
+  clientTranId: string; // The unique user-defined transaction id, min length 20
+  asset: string;
+  amount: number;
+  targetAsset: string; // Target asset you want to convert
+  accountType?: string; // Only MAIN and CARD, default MAIN
+  recvWindow?: number;
+}
+
+export interface IGetBUSDConvertHistoryOptions {
+  tranId?: number; // The transaction id
+  clientTranId?: string; // The user-defined transaction id
+  asset?: string;
+  startTime: number;
+  endTime: number;
+  accountType?: string; // MAIN: main account. CARD: funding account. If it is blank, we will query spot and card wallet, otherwise, we just query the corresponding wallet
+  current?: number; // current page, default 1, the min value is 1
+  size?: number; // page size, default 10, the max value is 100
+  recvWindow?: number;
+}
+
+export interface IGetCloudMiningPaymentAndRefundHistoryOptions {
+  tranId?: number; // The transaction id
+  clientTranId?: string; // The user-defined transaction id
+  asset?: string;
+  startTime: number;
+  endTime: number;
+  accountType?: string; // MAIN: main account. CARD: funding account. If it is blank, we will query spot and card wallet, otherwise, we just query the corresponding wallet
+  current?: number; // current page, default 1, the min value is 1
+  size?: number; // page size, default 10, the max value is 100
+  recvWindow?: number;
+}

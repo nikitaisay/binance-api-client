@@ -32,7 +32,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -44,7 +44,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -57,7 +57,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -70,7 +70,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -83,7 +83,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -96,7 +96,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -109,7 +109,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -122,7 +122,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -135,7 +135,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -148,7 +148,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -161,7 +161,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -174,7 +174,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 }

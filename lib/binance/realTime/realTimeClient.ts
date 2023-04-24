@@ -67,13 +67,7 @@ export abstract class BinanceRealTimeApiClient {
         console.error("Error parsing JSON data:", error.message);
       }
 
-      if (
-        typeof data === "object"
-        && "id" in data 
-        && data.id === options.id
-      ) {
-        options.callback(data);
-      }
+      options.callback(data);
     });
   }
 

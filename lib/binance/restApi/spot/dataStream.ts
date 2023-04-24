@@ -23,7 +23,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -36,7 +36,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 
@@ -49,7 +49,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
       });
       return res.data;
     } catch (error) {
-      this.throwError(error?.response?.data);
+      this.throwError(error?.response?.data?.message);
     }
   }
 }
