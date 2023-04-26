@@ -42,7 +42,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         method: RequestType.GET,
         path: "/sapi/v1/system/status",
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -54,7 +54,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         method: RequestType.GET,
         path: "/sapi/v1/capital/config/getall",
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -67,7 +67,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/accountSnapshot",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -80,7 +80,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/capital/withdraw/apply",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -93,7 +93,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/capital/deposit/hisrec",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -106,7 +106,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/capital/withdraw/history",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -119,7 +119,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/capital/deposit/address",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -132,7 +132,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/account/status",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -145,7 +145,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/account/apiTradingStatus",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -158,7 +158,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/dribblet",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -171,7 +171,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/dust-btc",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -184,7 +184,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/dust",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -197,7 +197,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/assetDividend",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -210,7 +210,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/assetDetail",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -223,7 +223,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/tradeFee",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -236,7 +236,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/transfer",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -249,7 +249,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/transfer",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -263,7 +263,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/get-funding-asset",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -277,7 +277,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v3/asset/getUserAsset",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -290,7 +290,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/account/apiRestrictions",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -304,7 +304,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/convert-transfer",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -317,7 +317,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/convert-transfer/queryByPage",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }
@@ -330,7 +330,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
         path: "/sapi/v1/asset/ledger-transfer/cloud-mining/queryByPage",
         params: options,
       });
-      return res.data;
+      return res;
     } catch (error) {
       this.throwError(error?.response?.data?.message);
     }

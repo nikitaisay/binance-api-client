@@ -465,3 +465,9 @@ export interface IGetCloudMiningPaymentAndRefundHistoryOptions {
   size?: number; // page size, default 10, the max value is 100
   recvWindow?: number;
 }
+
+export interface IUserAssetOptions {
+  asset?: string;
+  needBtcValuation?: string;
+  recvWindow?: number;
+}
