@@ -1,4 +1,4 @@
-import { RequestType } from "./enums";
+import { RequestType } from "../../types";
 
 export interface IHttpClientRequestConfig<P, D = null> {
   method: RequestType;

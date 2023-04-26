@@ -1,5 +1,11 @@
-import * as crypto from "crypto";
 import axios from "axios";
+
+import { 
+  buildQueryString, 
+  createSignature, 
+  stringifyData 
+} from "../../utils/binance";
+import { RequestType } from "../../types";
 
 import { BinanceApiError } from "./binanceApiError";
 import { 
@@ -8,7 +14,6 @@ import {
   IHttpClientRequestConfig, 
   IHttpClientRequestOptions 
 } from "./types";
-import { RequestType } from "./enums";
 
 export abstract class BinanceApiClient {
   protected url: string;
@@ -26,24 +31,15 @@ export abstract class BinanceApiClient {
   }
 
   private buildQueryString<P>(params: P): string {
-    if (!params) {
-      return "";
-    }
-
-    return Object.entries(params)
-      .map(([key, value]) => `${key}=${encodeURIComponent(this.stringifyData(value))}`)
-      .join("&");
+    return buildQueryString(params);
   }
 
   private stringifyData<V>(value: V): string | V {
-    return Array.isArray(value) ? `["${value.join("\",\"")}"]` : value;
+    return stringifyData(value);
   }
 
   private createSignature(queryString: string): string {
-    return crypto
-      .createHmac("sha256", this.apiSecret)
-      .update(queryString)
-      .digest("hex");
+    return createSignature(queryString, this.apiSecret);
   }
 
   private async signedRequest<P, D>(
@@ -100,7 +96,6 @@ export abstract class BinanceApiClient {
   }
 
   protected throwError(error: httpClientError) {
-    console.log(error);
     throw new BinanceApiError(`Error making API call: ${error}`);
   }
 

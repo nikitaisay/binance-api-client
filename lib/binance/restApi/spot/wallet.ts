@@ -1,7 +1,7 @@
 import { BinanceApiClient } from "../httpClient";
 import { IApiClientInitializeOptions } from "../types";
-import { RequestType } from "../enums";
 
+import { RequestType } from "../../../types";
 import { BINANCE_API_URLS } from "../../../constants";
 
 import { 

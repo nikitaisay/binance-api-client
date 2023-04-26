@@ -4,7 +4,6 @@ export interface IRealTimeApiClientOptions {
   apiKey: string;
   apiSecret: string;
   enableTestnet: boolean;
-  applyListenKey?: boolean;
 }
 
 export type TListenKeyManagerOptions = Omit<IRealTimeApiClientOptions, "applyListenKey">;
@@ -22,6 +21,7 @@ export interface IHandleStreamOptions {
   connectionCallback?: (data?: unknown) => void;
   type: string;
   id: number;
+  listenKey?: string;
 }
 
 export type TStreamOptions = Omit<IHandleStreamOptions, "url" | "type">;
@@ -74,4 +74,13 @@ export type TSubscribeUserDataStreamOptions = Omit<IHandleStreamOptions, "url" |
 export interface ISubscribeDiffDepthStreamOptions extends TStreamOptions {
   symbol: string;
   updateSpeed: string; // 1000ms or 100ms
+}
+
+export interface ICreateOrderStreamData {
+  symbol: string;
+  side: "BUY" | "SELL";
+  type: string;
+  timeInForce: string;
+  quantity: number;
+  price: number;
 }

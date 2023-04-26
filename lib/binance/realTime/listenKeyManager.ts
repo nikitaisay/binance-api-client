@@ -13,12 +13,19 @@ export default class ListenKeyManager {
     this.binanceSpotDataStreamApi = new BinanceSpotDataStreamApi(options);
   }
 
+  public keepAlive() {
+    const intervalId = setInterval(() => {
+      this.pingListenKey();
+    }, this.expirationTime);
+  } 
+
   public async initListenKey() {
     const data = await this.binanceSpotDataStreamApi.createListenKey();
 
     if (data && data.listenKey) {
       this.listenKey = data.listenKey;
       this.creationTimestamp = Date.now();
+      this.keepAlive();
     }
   }
 

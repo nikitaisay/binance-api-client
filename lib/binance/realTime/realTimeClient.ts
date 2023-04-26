@@ -1,31 +1,89 @@
 import WebSocket from "ws";
 
+import { RequestType } from "../../types";
+import { 
+  buildQueryString, 
+  createSignature, 
+  stringifyData 
+} from "../../utils/binance";
+
 import { 
   IHandleStreamOptions,
-  IRealTimeApiClientOptions, 
+  IRealTimeApiClientOptions,
   TWebSocketMapItem
 } from "./types";
-import ListenKeyManager from "./listenKeyManager";
 
 export abstract class BinanceRealTimeApiClient {
   protected ws_url: string;
   protected base_ws_url: string;
   protected test_ws_url: string;
-  protected applyListenKey = false;
 
-  private readonly listenKeyManager: ListenKeyManager;
+  private readonly api_key: string;
+  private readonly api_secret: string;
+  private readonly enable_testnet: boolean;
+
   private wsConnections: Map<string, TWebSocketMapItem> = new Map();
 
   constructor(options: IRealTimeApiClientOptions) {
-    this.listenKeyManager = new ListenKeyManager(options);
+    this.api_key = options.apiKey;
+    this.api_secret = options.apiSecret;
+    this.enable_testnet = options.enableTestnet;
   }
 
-  protected async handleStream(options: IHandleStreamOptions): Promise<void> {
-    if (this.applyListenKey) {
-      await this.initListenKey();
-    }
+  private buildQueryString<P>(params: P): string {
+    return buildQueryString(params);
+  }
 
-    const ws = new WebSocket(this.getStreamUrl(options.url));
+  private stringifyData<V>(value: V): string | V {
+    return stringifyData(value);
+  }
+
+  private createSignature(queryString: string): string {
+    return createSignature(queryString, this.api_secret);
+  }
+
+  protected sendSignedMessage<D>(
+    ws: WebSocket, 
+    data: D, 
+    path: string
+  ) {
+    const params = {
+      ...data,
+      timestamp: Date.now(),
+    };
+
+    const queryString = this.buildQueryString(params);
+    const signature = this.createSignature(queryString);
+
+    const payload = {
+      method: RequestType.POST,
+      path: `${path}?${queryString}&signature=${signature}`,
+      headers: {
+        "X-MBX-APIKEY": this.api_key,
+      },
+    };
+
+    ws.send(JSON.stringify(payload));
+  }
+
+  private getStreamUrl(path: string, listenKey?: string): string {
+    return listenKey ? `${path}/${listenKey}` : path;
+  }
+
+  private unsubscribeStream(connection: TWebSocketMapItem, id: string): void {
+    const unsubscribeMsg = {
+      method: "UNSUBSCRIBE",
+      params: [connection.type],
+      id: parseInt(id),
+    };
+
+    connection.ws.send(JSON.stringify(unsubscribeMsg));
+    connection.ws.close();
+    this.wsConnections.delete(id);
+  }
+
+  protected subscribeStream(options: IHandleStreamOptions): WebSocket {
+    const ws = new WebSocket(this.getStreamUrl(options.url, options.listenKey));
 
     this.wsConnections.set(`${options.id}`, { 
       ws, 
@@ -69,53 +127,21 @@ export abstract class BinanceRealTimeApiClient {
 
       options.callback(data);
     });
-  }
 
-  private async initListenKey(): Promise<void> {
-    if (!this.listenKeyManager.listenKey) {
-      await this.listenKeyManager.initListenKey();
-    }
-
-    if (this.listenKeyManager.isExpired()) {
-      await this.listenKeyManager.pingListenKey();
-    }
-  }
-
-  private getStreamUrl(path: string): string {
-    if (this.applyListenKey && this.listenKeyManager.listenKey) {
-      return `${path}/${this.listenKeyManager.listenKey}`;
-    }
-
-    return path;
+    return ws;
   }
 
   public closeStream(id: string): void {
     const connection = this.wsConnections.get(id);
 
     if (connection) {
-      const unsubscribeMsg = {
-        method: "UNSUBSCRIBE",
-        params: [connection.type],
-        id: parseInt(id),
-      };
-
-      connection.ws.send(JSON.stringify(unsubscribeMsg));
-      connection.ws.close();
-      this.wsConnections.delete(id);
+      this.unsubscribeStream(connection, id);
     }
   }
 
   public closeAllStreams(): void {
     this.wsConnections.forEach((connection, id) => {
-      const unsubscribeMsg = {
-        method: "UNSUBSCRIBE",
-        params: [connection.type],
-        id: parseInt(id),
-      };
-
-      connection.ws.send(JSON.stringify(unsubscribeMsg));
-      connection.ws.close();
-      this.wsConnections.delete(id);
+      this.unsubscribeStream(connection, id);
     });
   }
 
@@ -125,5 +151,9 @@ export abstract class BinanceRealTimeApiClient {
     if (connection) {
       return connection.ws;
     }
+  }
+
+  public createStream(options: IHandleStreamOptions): WebSocket {
+    return this.subscribeStream(options); 
   }
 }

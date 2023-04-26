@@ -6,8 +6,8 @@ describe("BinanceSpotRealTimeApi", () => {
   beforeEach(() => {
     client = new BinanceSpotRealTimeApi({
       enableTestnet: true,
-      apiKey: process.env.BINANCE_TESTNET_API_KEY,
-      apiSecret: process.env.BINANCE_TESTNET_API_SECRET,
+      apiKey: process.env.BINANCE_TESTNET_API_KEY || "",
+      apiSecret: process.env.BINANCE_TESTNET_API_SECRET || "",
     });
   });
   
