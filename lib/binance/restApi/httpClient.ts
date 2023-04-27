@@ -12,7 +12,7 @@ import {
   httpClientError,
   IApiClientInitializeOptions,
   IHttpClientRequestConfig, 
-  IHttpClientRequestOptions 
+  THttpClientRequestOptions 
 } from "./types";
 
 export abstract class BinanceApiClient {
@@ -96,10 +96,10 @@ export abstract class BinanceApiClient {
   }
 
   protected throwError(error: httpClientError) {
-    throw new BinanceApiError(`Error making API call: ${error}`);
+    throw new BinanceApiError(`Error making API call: ${JSON.stringify(error)}`);
   }
 
-  protected async publicRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
+  protected async publicRequest<P, D>(options: THttpClientRequestOptions<P, D>) {
     return await this.request({
       ...options,
       params: options.params,
@@ -107,7 +107,7 @@ export abstract class BinanceApiClient {
     });
   }
 
-  protected async keyedRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
+  protected async keyedRequest<P, D>(options: THttpClientRequestOptions<P, D>) {
     return await this.request({ 
       ...options,
       params: options.params,
@@ -118,7 +118,7 @@ export abstract class BinanceApiClient {
     });
   }
 
-  protected async privateRequest<P, D>(options: IHttpClientRequestOptions<P, D>) {
+  protected async privateRequest<P, D>(options: THttpClientRequestOptions<P, D>) {
     return await this.signedRequest<P, D>(
       options.method, 
       options.path, 

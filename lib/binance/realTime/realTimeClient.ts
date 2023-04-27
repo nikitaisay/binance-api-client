@@ -14,20 +14,20 @@ import {
 } from "./types";
 
 export abstract class BinanceRealTimeApiClient {
-  protected ws_url: string;
-  protected base_ws_url: string;
-  protected test_ws_url: string;
+  protected apiUrl: string;
+  protected baseApiUrl: string;
+  protected testApiUrl: string;
 
-  private readonly api_key: string;
-  private readonly api_secret: string;
-  private readonly enable_testnet: boolean;
+  private readonly apiKey: string;
+  private readonly apiSecret: string;
+  private readonly enableTestnet: boolean;
 
   private wsConnections: Map<string, TWebSocketMapItem> = new Map();
 
   constructor(options: IRealTimeApiClientOptions) {
-    this.api_key = options.apiKey;
-    this.api_secret = options.apiSecret;
-    this.enable_testnet = options.enableTestnet;
+    this.apiKey = options.apiKey;
+    this.apiSecret = options.apiSecret;
+    this.enableTestnet = options.enableTestnet;
   }
 
   private buildQueryString<P>(params: P): string {
@@ -39,14 +39,14 @@ export abstract class BinanceRealTimeApiClient {
   }
 
   private createSignature(queryString: string): string {
-    return createSignature(queryString, this.api_secret);
+    return createSignature(queryString, this.apiSecret);
   }
 
   protected sendSignedMessage<D>(
-    ws: WebSocket, 
+    stream: WebSocket, 
     data: D, 
     path: string
-  ) {
+  ): void {
     const params = {
       ...data,
       timestamp: Date.now(),
@@ -59,11 +59,11 @@ export abstract class BinanceRealTimeApiClient {
       method: RequestType.POST,
       path: `${path}?${queryString}&signature=${signature}`,
       headers: {
-        "X-MBX-APIKEY": this.api_key,
+        "X-MBX-APIKEY": this.apiKey,
       },
     };
 
-    ws.send(JSON.stringify(payload));
+    stream.send(JSON.stringify(payload));
   }
 
   private getStreamUrl(path: string, listenKey?: string): string {

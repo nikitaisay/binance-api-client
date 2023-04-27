@@ -1,6 +1,7 @@
+import { validateRequiredParams } from "../../../utils/decorators";
 import { BINANCE_API_URLS } from "../../../constants";
-
 import { RequestType } from "../../../types";
+
 import { BinanceApiClient } from "../httpClient";
 import { IApiClientInitializeOptions } from "../types";
 
@@ -61,6 +62,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async getOrderBook(options: IGetOrderBookOptions) {
     try {
       const res = await this.publicRequest({
@@ -74,6 +76,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async getRecentTradesList(options: IGetRecentTradesListOptions) {
     try {
       const res = await this.publicRequest({
@@ -87,6 +90,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async getAggregateTradesList(options: IGetAggregateTradesListOptions) {
     try {
       const res = await this.publicRequest({
@@ -100,6 +104,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol", "interval"])
   async getCandlestickData(options: IGetCandlestickDataOptions) {
     try {
       const res = await this.publicRequest({
@@ -113,6 +118,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async getCurrentAveragePrice(options: IGetCurrentAveragePriceOptions) {
     try {
       const res = await this.publicRequest({

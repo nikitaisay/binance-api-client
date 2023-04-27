@@ -1,3 +1,4 @@
+import { validateRequiredParams } from "../../../utils/decorators";
 import { BINANCE_API_URLS } from "../../../constants";
 import { RequestType } from "../../../types";
 
@@ -27,6 +28,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["listenKey"])
   async pingListenKey(options: IListenKeyRequestOptions) {
     try {
       const res = await this.keyedRequest({
@@ -40,6 +42,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["listenKey"])
   async closeListenKey(options: IListenKeyRequestOptions) {
     try {
       const res = await this.keyedRequest({

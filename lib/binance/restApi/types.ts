@@ -8,7 +8,7 @@ export interface IHttpClientRequestConfig<P, D = null> {
   data?: D;
 }
 
-export type IHttpClientRequestOptions<P, D> = Omit<IHttpClientRequestConfig<P, D>, "headers">;
+export type THttpClientRequestOptions<P, D> = Omit<IHttpClientRequestConfig<P, D>, "headers">;
 
 export interface httpClientError {
   code: number;

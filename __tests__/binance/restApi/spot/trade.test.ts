@@ -6,8 +6,8 @@ describe("BinanceSpotTradeApi", () => {
   beforeEach(() => {
     api = new BinanceSpotTradeApi({
       enableTestnet: true,
-      apiKey: process.env.BINANCE_TESTNET_API_KEY,
-      apiSecret: process.env.BINANCE_TESTNET_API_SECRET,
+      apiKey: process.env.BINANCE_TESTNET_API_KEY || "",
+      apiSecret: process.env.BINANCE_TESTNET_API_SECRET || "",
     });
   });
 
@@ -146,7 +146,7 @@ describe("BinanceSpotTradeApi", () => {
       const data = await api.testNewMarketOrder({
         symbol: "BTCUSDT",
         side: "BUY",
-        quoteOrderQty: 1000,
+        quantity: 0.001,
       });
       expect(data).toBeDefined();
     });

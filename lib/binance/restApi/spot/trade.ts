@@ -1,3 +1,4 @@
+import { validateRequiredParams } from "../../../utils/decorators";
 import { BINANCE_API_URLS } from "../../../constants";
 import { RequestType } from "../../../types";
 
@@ -41,6 +42,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     this.url = options.enableTestnet ? this.testnetUrl : this.baseApiUrl;
   }
 
+  @validateRequiredParams(["symbol"])
   async queryOrder(options: IQueryOrderOptions) {
     try {
       const res = await this.privateRequest({
@@ -67,6 +69,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async getAllOrders(options: IGetAllOrdersOptions) {
     try {
       const res = await this.privateRequest({
@@ -133,6 +136,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async getAccountTradeList(options: IGetAccountTradeListOptions) {
     try {
       const res = await this.privateRequest({
@@ -159,6 +163,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol", "side", "type"])
   async testNewOrder(options: ITestNewOrderOptions) {
     try {
       const res = await this.privateRequest({
@@ -172,36 +177,42 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
   async testNewLimitOrder(options: ITestNewLimitOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "LIMIT",
     });
   }
 
+  @validateRequiredParams(["symbol", "side"])
   async testNewMarketOrder(options: ITestNewMarketOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "MARKET",
     });
   }
 
+  @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
   async testNewStopLossLimitOrder(options: ITestNewStopLossLimitOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "STOP_LOSS_LIMIT",
     });
   }
 
+  @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
   async testNewTakeProfitLimitOrder(options: ITestNewTakeProfitLimitOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "TAKE_PROFIT_LIMIT",
     });
   }
 
+  @validateRequiredParams(["symbol", "side", "quantity", "price"])
   async testNewLimitMakerOrder(options: ITestNewLimitMakerOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "LIMIT_MAKER",
     });
   }
 
+  @validateRequiredParams(["symbol", "side", "type"])
   async newOrder(options: INewOrderOptions) {
     try {
       const res = await this.privateRequest({
@@ -215,36 +226,42 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
   async newLimitOrder(options: INewLimitOrderOptions) {
     return await this.newOrder({
       ...options, type: "LIMIT",
     });
   }
 
+  @validateRequiredParams(["symbol", "side"])
   async newMarketOrder(options: INewMarketOrderOptions) {
     return await this.newOrder({
       ...options, type: "MARKET",
     });
   }
 
+  @validateRequiredParams(["symbol", "side", "quantity", "timeInForce", "price"])
   async newStopLossLimitOrder(options: INewStopLossLimitOrderOptions) {
     return await this.newOrder({
       ...options, type: "STOP_LOSS_LIMIT",
     });
   }
 
+  @validateRequiredParams(["symbol", "side", "quantity", "timeInForce", "price"])
   async newTakeProfitLimitOrder(options: INewTakeProfitLimitOrderOptions) {
     return await this.newOrder({
       ...options, type: "TAKE_PROFIT_LIMIT",
     });
   }
 
+  @validateRequiredParams(["symbol", "side", "quantity", "price"])
   async newLimitMakerOrder(options: INewLimitMakerOrderOptions) {
     return await this.newOrder({
       ...options, type: "LIMIT_MAKER",
     });
   }
 
+  @validateRequiredParams(["symbol"])
   async cancelAllOpenOrdersOnSymbol(options: ICancelAllOpenOrdersOnSymbolOptions) {
     try {
       const res = await this.privateRequest({
@@ -258,6 +275,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async cancelOrder(options: ICancelOrderOptions) {
     try {
       const res = await this.privateRequest({
@@ -279,6 +297,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   // ICEBERG quantities however do not have to be the same.
   // Order Rate Limit
   // OCO counts as 2 orders against the order rate limit.
+  @validateRequiredParams(["symbol", "side", "quantity", "price", "stopPrice"])
   async newOco(options: INewOcoOptions) {
     try {
       const res = await this.privateRequest({
@@ -292,6 +311,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol"])
   async cancelOco(options: ICancelOcoOptions) {
     try {
       const res = await this.privateRequest({
@@ -305,6 +325,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
+  @validateRequiredParams(["symbol", "side", "type", "cancelReplaceMode"])
   async cancelExistingOrderAndSendNew(options: ICancelExistingOrderAndSendNewOptions) {
     try {
       const res = await this.privateRequest({
