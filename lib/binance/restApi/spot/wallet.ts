@@ -36,7 +36,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     this.url = options.enableTestnet ? this.testnetUrl : this.baseApiUrl;
   }
 
-  async checkSystemStatus() {
+  public async checkSystemStatus() {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -48,7 +48,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getAllCoinsInformation() {
+  public async getAllCoinsInformation() {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -60,7 +60,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getDailyAccountSnapshot(options: IGetDailyAccountSnapshotOptions) {
+  public async getDailyAccountSnapshot(options: IGetDailyAccountSnapshotOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -73,7 +73,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async withdraw(options: IWithdrawOptions) {
+  public async withdraw(options: IWithdrawOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -86,7 +86,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getDepositHistory(options: IGetDepositHistoryOptions = {}) {
+  public async getDepositHistory(options: IGetDepositHistoryOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -99,7 +99,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getWithdrawHistory(options: IGetWithdrawHistoryOptions = {}) {
+  public async getWithdrawHistory(options: IGetWithdrawHistoryOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -112,7 +112,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getDepositAddress(options: IGetDepositAddressOptions) {
+  public async getDepositAddress(options: IGetDepositAddressOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -125,7 +125,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getAccountStatus(options: IGetAccountStatusOptions = {}) {
+  public async getAccountStatus(options: IGetAccountStatusOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -138,7 +138,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getAccountAPITradingStatus(options: IGetAccountAPITradingStatusOptions = {}) {
+  public async getAccountAPITradingStatus(options: IGetAccountAPITradingStatusOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -151,7 +151,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getDustLog(options: IGetDustLogOptions = {}) {
+  public async getDustLog(options: IGetDustLogOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -164,7 +164,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getAssetsThatCanBeConvertedIntoBNB(options: IGetAssetsThatCanBeConvertedIntoBNBOptions = {}) {
+  public async getAssetsThatCanBeConvertedIntoBNB(options: IGetAssetsThatCanBeConvertedIntoBNBOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -177,7 +177,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async dustTransfer(options: IDustTransferOptions) {
+  public async dustTransfer(options: IDustTransferOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -190,7 +190,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getAssetDividendRecord(options: IGetAssetDividendRecordOptions = {}) {
+  public async getAssetDividendRecord(options: IGetAssetDividendRecordOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -203,7 +203,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getAsseDetail(options: IGetAsseDetailOptions = {}) {
+  public async getAsseDetail(options: IGetAsseDetailOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -216,7 +216,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getTradeFee(options: IGetTradeFeeOptions = {}) {
+  public async getTradeFee(options: IGetTradeFeeOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -229,7 +229,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async queryUserUniversalTransferHistory(options: IQueryUserUniversalTransferHistoryOptions) {
+  public async queryUserUniversalTransferHistory(options: IQueryUserUniversalTransferHistoryOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -242,7 +242,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async userUniversalTransferHistory(options: IUserUniversalTransferHistoryOptions) {
+  public async userUniversalTransferHistory(options: IUserUniversalTransferHistoryOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -256,7 +256,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
   }
 
   // Currently supports querying the following business assets：Binance Pay, Binance Card, Binance Gift Card, Stock Token
-  async fundingWallet(options: IFundingWalletOptions = {}) {
+  public async fundingWallet(options: IFundingWalletOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -270,7 +270,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
   }
 
   // Get user assets, just for positive data.
-  async getUserAsset(options: IUserAssetOptions = {}) {
+  public async getUserAsset(options: IUserAssetOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -283,7 +283,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getAPIKeyPermission(options: IGetAPIKeyPermissionOptions = {}) {
+  public async getAPIKeyPermission(options: IGetAPIKeyPermissionOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -297,7 +297,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
   }
 
   // Convert transfer, convert between BUSD and stablecoins.
-  async BUSDConvertTransfer(options: IBUSDConvertTransferOptions) {
+  public async BUSDConvertTransfer(options: IBUSDConvertTransferOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -310,7 +310,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getBUSDConvertHistory(options: IGetBUSDConvertHistoryOptions) {
+  public async getBUSDConvertHistory(options: IGetBUSDConvertHistoryOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -323,7 +323,7 @@ export class BinanceSpotWalletApi extends BinanceApiClient {
     }
   }
 
-  async getCloudMiningPaymentAndRefundHistory(options: IGetCloudMiningPaymentAndRefundHistoryOptions) {
+  public async getCloudMiningPaymentAndRefundHistory(options: IGetCloudMiningPaymentAndRefundHistoryOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,

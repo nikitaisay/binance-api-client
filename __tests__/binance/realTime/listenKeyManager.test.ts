@@ -3,8 +3,8 @@ import ListenKeyManager from "../../../lib/binance/realTime/listenKeyManager";
 describe("ListenKeyManager", () => {
   const manager = new ListenKeyManager({
     enableTestnet: true,
-    apiKey: process.env.BINANCE_TESTNET_API_KEY,
-    apiSecret: process.env.BINANCE_TESTNET_API_SECRET,
+    apiKey: process.env.BINANCE_TESTNET_API_KEY || "",
+    apiSecret: process.env.BINANCE_TESTNET_API_SECRET || "",
   });
 
   test("Should init listen key", async () => {

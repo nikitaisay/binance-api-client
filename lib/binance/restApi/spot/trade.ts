@@ -43,7 +43,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async queryOrder(options: IQueryOrderOptions) {
+  public async queryOrder(options: IQueryOrderOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -56,7 +56,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
-  async getCurrentOpenOrders(options: IGetCurrentOpenOrdersOptions = {}) {
+  public async getCurrentOpenOrders(options: IGetCurrentOpenOrdersOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -70,7 +70,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async getAllOrders(options: IGetAllOrdersOptions) {
+  public async getAllOrders(options: IGetAllOrdersOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -84,7 +84,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   // Either orderListId or origClientOrderId must be provided
-  async queryOco(options: IQueryOcoOptions = {}) {
+  public async queryOco(options: IQueryOcoOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -97,7 +97,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
-  async queryAllOco(options: IQueryAllOcoOptions = {}) {
+  public async queryAllOco(options: IQueryAllOcoOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -110,7 +110,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
-  async queryOpenOco(options: IQueryOpenOcoOptions = {}) {
+  public async queryOpenOco(options: IQueryOpenOcoOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -123,7 +123,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
-  async getAccountInformation(options: IGetAccountInformationOptions = {}) {
+  public async getAccountInformation(options: IGetAccountInformationOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -137,7 +137,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async getAccountTradeList(options: IGetAccountTradeListOptions) {
+  public async getAccountTradeList(options: IGetAccountTradeListOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -150,7 +150,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
     }
   }
 
-  async queryCurrentOrderCountUsage(options: IQueryCurrentOrderCountUsageOptions = {}) {
+  public async queryCurrentOrderCountUsage(options: IQueryCurrentOrderCountUsageOptions = {}) {
     try {
       const res = await this.privateRequest({
         method: RequestType.GET,
@@ -164,7 +164,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol", "side", "type"])
-  async testNewOrder(options: ITestNewOrderOptions) {
+  public async testNewOrder(options: ITestNewOrderOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -178,42 +178,42 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
-  async testNewLimitOrder(options: ITestNewLimitOrderOptions) {
+  public async testNewLimitOrder(options: ITestNewLimitOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "LIMIT",
     });
   }
 
   @validateRequiredParams(["symbol", "side"])
-  async testNewMarketOrder(options: ITestNewMarketOrderOptions) {
+  public async testNewMarketOrder(options: ITestNewMarketOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "MARKET",
     });
   }
 
   @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
-  async testNewStopLossLimitOrder(options: ITestNewStopLossLimitOrderOptions) {
+  public async testNewStopLossLimitOrder(options: ITestNewStopLossLimitOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "STOP_LOSS_LIMIT",
     });
   }
 
   @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
-  async testNewTakeProfitLimitOrder(options: ITestNewTakeProfitLimitOrderOptions) {
+  public async testNewTakeProfitLimitOrder(options: ITestNewTakeProfitLimitOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "TAKE_PROFIT_LIMIT",
     });
   }
 
   @validateRequiredParams(["symbol", "side", "quantity", "price"])
-  async testNewLimitMakerOrder(options: ITestNewLimitMakerOrderOptions) {
+  public async testNewLimitMakerOrder(options: ITestNewLimitMakerOrderOptions) {
     return await this.testNewOrder({
       ...options, type: "LIMIT_MAKER",
     });
   }
 
   @validateRequiredParams(["symbol", "side", "type"])
-  async newOrder(options: INewOrderOptions) {
+  public async newOrder(options: INewOrderOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -227,42 +227,42 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol", "side", "timeInForce", "quantity", "price"])
-  async newLimitOrder(options: INewLimitOrderOptions) {
+  public async newLimitOrder(options: INewLimitOrderOptions) {
     return await this.newOrder({
       ...options, type: "LIMIT",
     });
   }
 
   @validateRequiredParams(["symbol", "side"])
-  async newMarketOrder(options: INewMarketOrderOptions) {
+  public async newMarketOrder(options: INewMarketOrderOptions) {
     return await this.newOrder({
       ...options, type: "MARKET",
     });
   }
 
   @validateRequiredParams(["symbol", "side", "quantity", "timeInForce", "price"])
-  async newStopLossLimitOrder(options: INewStopLossLimitOrderOptions) {
+  public async newStopLossLimitOrder(options: INewStopLossLimitOrderOptions) {
     return await this.newOrder({
       ...options, type: "STOP_LOSS_LIMIT",
     });
   }
 
   @validateRequiredParams(["symbol", "side", "quantity", "timeInForce", "price"])
-  async newTakeProfitLimitOrder(options: INewTakeProfitLimitOrderOptions) {
+  public async newTakeProfitLimitOrder(options: INewTakeProfitLimitOrderOptions) {
     return await this.newOrder({
       ...options, type: "TAKE_PROFIT_LIMIT",
     });
   }
 
   @validateRequiredParams(["symbol", "side", "quantity", "price"])
-  async newLimitMakerOrder(options: INewLimitMakerOrderOptions) {
+  public async newLimitMakerOrder(options: INewLimitMakerOrderOptions) {
     return await this.newOrder({
       ...options, type: "LIMIT_MAKER",
     });
   }
 
   @validateRequiredParams(["symbol"])
-  async cancelAllOpenOrdersOnSymbol(options: ICancelAllOpenOrdersOnSymbolOptions) {
+  public async cancelAllOpenOrdersOnSymbol(options: ICancelAllOpenOrdersOnSymbolOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.DELETE,
@@ -276,7 +276,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async cancelOrder(options: ICancelOrderOptions) {
+  public async cancelOrder(options: ICancelOrderOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.DELETE,
@@ -298,7 +298,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   // Order Rate Limit
   // OCO counts as 2 orders against the order rate limit.
   @validateRequiredParams(["symbol", "side", "quantity", "price", "stopPrice"])
-  async newOco(options: INewOcoOptions) {
+  public async newOco(options: INewOcoOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -312,7 +312,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async cancelOco(options: ICancelOcoOptions) {
+  public async cancelOco(options: ICancelOcoOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,
@@ -326,7 +326,7 @@ export class BinanceSpotTradeApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol", "side", "type", "cancelReplaceMode"])
-  async cancelExistingOrderAndSendNew(options: ICancelExistingOrderAndSendNewOptions) {
+  public async cancelExistingOrderAndSendNew(options: ICancelExistingOrderAndSendNewOptions) {
     try {
       const res = await this.privateRequest({
         method: RequestType.POST,

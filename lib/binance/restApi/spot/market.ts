@@ -25,7 +25,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     this.url = options.enableTestnet ? this.testnetUrl : this.baseApiUrl;
   }
 
-  async testConnectivity() {
+  public async testConnectivity() {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -37,7 +37,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
-  async checkServerTime() {
+  public async checkServerTime() {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -49,7 +49,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
-  async getExchangeInfo(options: IGetExchangeInfoOptions = {}) {
+  public async getExchangeInfo(options: IGetExchangeInfoOptions = {}) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -63,7 +63,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async getOrderBook(options: IGetOrderBookOptions) {
+  public async getOrderBook(options: IGetOrderBookOptions) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -77,7 +77,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async getRecentTradesList(options: IGetRecentTradesListOptions) {
+  public async getRecentTradesList(options: IGetRecentTradesListOptions) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -91,7 +91,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async getAggregateTradesList(options: IGetAggregateTradesListOptions) {
+  public async getAggregateTradesList(options: IGetAggregateTradesListOptions) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -105,7 +105,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol", "interval"])
-  async getCandlestickData(options: IGetCandlestickDataOptions) {
+  public async getCandlestickData(options: IGetCandlestickDataOptions) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -119,7 +119,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["symbol"])
-  async getCurrentAveragePrice(options: IGetCurrentAveragePriceOptions) {
+  public async getCurrentAveragePrice(options: IGetCurrentAveragePriceOptions) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -132,7 +132,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
-  async get24hrTickerPriceChangeStatistics(options: IGet24hrTickerPriceChangeStatisticsOptions = {}) {
+  public async get24hrTickerPriceChangeStatistics(options: IGet24hrTickerPriceChangeStatisticsOptions = {}) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -145,7 +145,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
-  async getSymbolPriceTicker(options: IGetSymbolPriceTickerOptions = {}) {
+  public async getSymbolPriceTicker(options: IGetSymbolPriceTickerOptions = {}) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -158,7 +158,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
-  async getSymbolOrderBookTicker(options: IGetSymbolPriceTickerOptions = {}) {
+  public async getSymbolOrderBookTicker(options: IGetSymbolPriceTickerOptions = {}) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,
@@ -171,7 +171,7 @@ export class BinanceSpotMarketApi extends BinanceApiClient {
     }
   }
 
-  async getRollingWindowPriceChangeStatistics(options: IGetRollingWindowPriceChangeStatisticsOptions = {}) {
+  public async getRollingWindowPriceChangeStatistics(options: IGetRollingWindowPriceChangeStatisticsOptions = {}) {
     try {
       const res = await this.publicRequest({
         method: RequestType.GET,

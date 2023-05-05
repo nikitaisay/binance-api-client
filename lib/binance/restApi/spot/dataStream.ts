@@ -16,7 +16,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
     this.url = options.enableTestnet ? this.testnetUrl : this.baseApiUrl;
   }
 
-  async createListenKey() {
+  public async createListenKey() {
     try {
       const res = await this.keyedRequest({
         method: RequestType.POST,
@@ -29,7 +29,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["listenKey"])
-  async pingListenKey(options: IListenKeyRequestOptions) {
+  public async pingListenKey(options: IListenKeyRequestOptions) {
     try {
       const res = await this.keyedRequest({
         method: RequestType.PUT,
@@ -43,7 +43,7 @@ export class BinanceSpotDataStreamApi extends BinanceApiClient {
   }
 
   @validateRequiredParams(["listenKey"])
-  async closeListenKey(options: IListenKeyRequestOptions) {
+  public async closeListenKey(options: IListenKeyRequestOptions) {
     try {
       const res = await this.keyedRequest({
         method: RequestType.DELETE,

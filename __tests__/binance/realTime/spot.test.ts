@@ -16,10 +16,11 @@ describe("BinanceSpotRealTimeApi", () => {
     const errorCallback = jest.fn();
     const connectionCallback = jest.fn();
     const closeCallback = jest.fn();
+    const id = 1;
 
     client.subscribeTradeStream({
       symbol: "bnbbtc",
-      id: 1,
+      id,
       callback,
       errorCallback,
       connectionCallback,
@@ -27,10 +28,13 @@ describe("BinanceSpotRealTimeApi", () => {
     });
 
     await new Promise((resolve) => setTimeout(resolve, 3000)); // wait for client to be connected
+
+    let stream = client.getStreamById(id);
+    expect(stream).toBeDefined();
+
     client.closeAllStreams();
     await new Promise((resolve) => setTimeout(resolve, 3000)); // wait for client to be disconnected
-
-    const stream = client.getStreamById(1);
+    stream = client.getStreamById(id);
 
     expect(callback).toHaveBeenCalled();
     expect(connectionCallback).toHaveBeenCalled();

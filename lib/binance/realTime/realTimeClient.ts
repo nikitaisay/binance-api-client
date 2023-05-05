@@ -1,15 +1,7 @@
 import WebSocket from "ws";
 
-import { RequestType } from "../../types";
-import { 
-  buildQueryString, 
-  createSignature, 
-  stringifyData 
-} from "../../utils/binance";
-
 import { 
   IHandleStreamOptions,
-  IRealTimeApiClientOptions,
   TWebSocketMapItem
 } from "./types";
 
@@ -17,64 +9,13 @@ export abstract class BinanceRealTimeApiClient {
   protected apiUrl: string;
   protected baseApiUrl: string;
   protected testApiUrl: string;
+  protected wsConnections: Map<string, TWebSocketMapItem> = new Map();
 
-  private readonly apiKey: string;
-  private readonly apiSecret: string;
-  private readonly enableTestnet: boolean;
-
-  private wsConnections: Map<string, TWebSocketMapItem> = new Map();
-
-  constructor(options: IRealTimeApiClientOptions) {
-    this.apiKey = options.apiKey;
-    this.apiSecret = options.apiSecret;
-    this.enableTestnet = options.enableTestnet;
-  }
-
-  private buildQueryString<P>(params: P): string {
-    return buildQueryString(params);
-  }
-
-  private stringifyData<V>(value: V): string | V {
-    return stringifyData(value);
-  }
-
-  private createSignature(queryString: string): string {
-    return createSignature(queryString, this.apiSecret);
-  }
-
-  protected sendSignedMessage<D>(
-    stream: WebSocket, 
-    data: D, 
-    path: string
-  ): void {
-    const params = {
-      ...data,
-      timestamp: Date.now(),
-    };
-
-    const queryString = this.buildQueryString(params);
-    const signature = this.createSignature(queryString);
-
-    const payload = {
-      method: RequestType.POST,
-      path: `${path}?${queryString}&signature=${signature}`,
-      headers: {
-        "X-MBX-APIKEY": this.apiKey,
-      },
-    };
-
-    stream.send(JSON.stringify(payload));
-  }
-
-  private getStreamUrl(path: string, listenKey?: string): string {
-    return listenKey ? `${path}/${listenKey}` : path;
-  }
-
-  private unsubscribeStream(connection: TWebSocketMapItem, id: string): void {
+  protected unsubscribeStream(connection: TWebSocketMapItem, id: string): void {
     const unsubscribeMsg = {
       method: "UNSUBSCRIBE",
       params: [connection.type],
-      id: parseInt(id),
+      id: parseFloat(id),
     };
 
     connection.ws.send(JSON.stringify(unsubscribeMsg));
@@ -82,13 +23,17 @@ export abstract class BinanceRealTimeApiClient {
     this.wsConnections.delete(id);
   }
 
-  protected subscribeStream(options: IHandleStreamOptions): WebSocket {
-    const ws = new WebSocket(this.getStreamUrl(options.url, options.listenKey));
+  protected addConnetion(
+    id: number, 
+    ws: WebSocket, 
+    type: string
+  ): void {
+    this.wsConnections.set(`${id}`, { ws, type, });
+  }
 
-    this.wsConnections.set(`${options.id}`, { 
-      ws, 
-      type: options.type, 
-    });
+  protected subscribeStream(options: IHandleStreamOptions): WebSocket {
+    const ws = new WebSocket(options.url);
+    this.addConnetion(options.id, ws, options.type);
 
     ws.on("error", (error) => {
       if (options.errorCallback) {
@@ -111,6 +56,8 @@ export abstract class BinanceRealTimeApiClient {
     });
     
     ws.on("close", (code, reason) => {
+      this.closeStream(`${options.id}`);
+
       if (options.closeCallback) {
         options.closeCallback(code, reason.toString());
       }
@@ -123,6 +70,10 @@ export abstract class BinanceRealTimeApiClient {
         data = JSON.parse(message.toString());
       } catch (error) {
         console.error("Error parsing JSON data:", error.message);
+
+        if (options.errorCallback) {
+          options.errorCallback(error);
+        }
       }
 
       options.callback(data);
@@ -151,9 +102,5 @@ export abstract class BinanceRealTimeApiClient {
     if (connection) {
       return connection.ws;
     }
-  }
-
-  public createStream(options: IHandleStreamOptions): WebSocket {
-    return this.subscribeStream(options); 
   }
 }
