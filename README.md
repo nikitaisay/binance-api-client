@@ -151,10 +151,10 @@ Get account trade list
 const res = await apiClient.spot.trade.getAccountTradeList({
     symbol: 'BNBUSDT',
     orderId: 'order-id'; // This can only be used in combination with symbol.
-   startTime: 1684335862286,
-   endTime: 1684335862286,
-   fromId: 'trade-id-to-fetch-from';
-   limit: 500,
+    startTime: 1684335862286,
+    endTime: 1684335862286,
+    fromId: 'trade-id-to-fetch-from';
+    limit: 500,
 });
 ```
 Query current order count usage
