@@ -1,1 +1,10 @@
 __tests__
+.parcel-cache
+.vscode
+node_modules
+.env
+.eslintrc.json
+.gitignore
+lib
+index.ts
+jest.config.js

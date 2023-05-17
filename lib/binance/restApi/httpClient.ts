@@ -7,7 +7,6 @@ import {
 } from "../../utils/binance";
 import { RequestType } from "../../types";
 
-import { BinanceApiError } from "./binanceApiError";
 import { 
   httpClientError,
   IApiClientInitializeOptions,
@@ -95,8 +94,9 @@ export abstract class BinanceApiClient {
     return await axios.request(config);
   }
 
-  protected throwError(error: httpClientError) {
-    throw new BinanceApiError(`Error making API call: ${JSON.stringify(error)}`);
+  protected throwError(error?: httpClientError) {
+    const err = error || { msg: "Ooops, some error occured", };
+    throw new Error(`Error making API call: ${JSON.stringify(err)}`);
   }
 
   protected async publicRequest<P, D>(options: THttpClientRequestOptions<P, D>) {

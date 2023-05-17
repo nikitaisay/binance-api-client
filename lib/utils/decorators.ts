@@ -1,5 +1,5 @@
 export function validateRequiredParams(paramObject: string[]) {
-  return function (target: any, key: string, descriptor: PropertyDescriptor) {
+  return function (_target: any, _key: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
 
     descriptor.value = function (args: any) {
