@@ -138,3 +138,26 @@ const res = await apiClient.spot.trade.queryAllOco({
     limit: 500,
 });
 ```
+Query open oco
+```javascript
+const res = await apiClient.spot.trade.queryOpenOco();
+```
+Get account information
+```javascript
+const res = await apiClient.spot.trade.getAccountInformation();
+```
+Get account trade list
+```javascript
+const res = await apiClient.spot.trade.getAccountTradeList({
+    symbol: 'BNBUSDT',
+    orderId: 'order-id'; // This can only be used in combination with symbol.
+   startTime: 1684335862286,
+   endTime: 1684335862286,
+   fromId: 'trade-id-to-fetch-from';
+   limit: 500,
+});
+```
+Query current order count usage
+```javascript
+const res = await apiClient.spot.trade.queryCurrentOrderCountUsage();
+```
