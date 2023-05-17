@@ -100,7 +100,7 @@ const res = await apiClient.spot.market.getRollingWindowPriceChangeStatistics({
 ## Binance spot trade API
 Query order
 ```javascript
-const res = await apiClient.spot.market.queryOrder({
+const res = await apiClient.spot.trade.queryOrder({
     symbol: 'BNBUSDT',
     orderId: 'some-order-id',
     origClientOrderId?: 'some-client-order-id',
@@ -108,7 +108,7 @@ const res = await apiClient.spot.market.queryOrder({
 ```
 Get all orders
 ```javascript
-const res = await apiClient.spot.market.getAllOrders({
+const res = await apiClient.spot.trade.getAllOrders({
     symbol: 'BNBUSDT',
     orderId: 'some-order-id',
     startTime: 1684335862286,
@@ -118,20 +118,20 @@ const res = await apiClient.spot.market.getAllOrders({
 ```
 Get current open orders
 ```javascript
-const res = await apiClient.spot.market.getCurrentOpenOrders({
+const res = await apiClient.spot.trade.getCurrentOpenOrders({
     symbol: 'BNBUSDT',
 });
 ```
 Query oco
 ```javascript
-const res = await apiClient.spot.market.queryOco({
+const res = await apiClient.spot.trade.queryOco({
    orderListId: 'some-order-list-id', // Order list id
    origClientOrderId: 'id-from-the-client', // Order id from client
 });
 ```
 Query all oco
 ```javascript
-const res = await apiClient.spot.market.queryAllOco({
+const res = await apiClient.spot.trade.queryAllOco({
     fromId: 'Trade id to fetch from',
     startTime: 1684335862286,
     endTime: 1684335862286,
