@@ -95,3 +95,46 @@ const res = await apiClient.spot.market.getRollingWindowPriceChangeStatistics({
     windowSize: '1d', // 1d 1m 1h etc
     type: 'FULL'; // FULL or MINI
 });
+```
+
+## Binance spot trade API
+Query order
+```javascript
+const res = await apiClient.spot.market.queryOrder({
+    symbol: 'BNBUSDT',
+    orderId: 'some-order-id',
+    origClientOrderId?: 'some-client-order-id',
+});
+```
+Get all orders
+```javascript
+const res = await apiClient.spot.market.getAllOrders({
+    symbol: 'BNBUSDT',
+    orderId: 'some-order-id',
+    startTime: 1684335862286,
+    endTime: 1684335862286,
+    limit: 500,
+});
+```
+Get current open orders
+```javascript
+const res = await apiClient.spot.market.getCurrentOpenOrders({
+    symbol: 'BNBUSDT',
+});
+```
+Query oco
+```javascript
+const res = await apiClient.spot.market.queryOco({
+   orderListId: 'some-order-list-id', // Order list id
+   origClientOrderId: 'id-from-the-client', // Order id from client
+});
+```
+Query all oco
+```javascript
+const res = await apiClient.spot.market.queryAllOco({
+    fromId: 'Trade id to fetch from',
+    startTime: 1684335862286,
+    endTime: 1684335862286,
+    limit: 500,
+});
+```
