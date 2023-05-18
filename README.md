@@ -8,7 +8,7 @@ This project is designed to help you make your own projects that interact with t
 ## Installation
 
 ```bash
-  npm install @nkt_isay/binance_api_client --save
+  npm i @nikita_isay/binance_api_client
 ```
 
 ## Getting started
