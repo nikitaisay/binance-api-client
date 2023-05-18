@@ -14,9 +14,9 @@ This project is designed to help you make your own projects that interact with t
 ## Getting started
 
 ```javascript
-  import { BinanceApiClient } from 'binance_api_client';
+  import { BinanceApi } from '@nikita_isay/binance_api_client';
 
-  const apiClient = new BinanceApiClient({
+  const apiClient = new BinanceApi({
     enableTestnet: false,
     apiKey: 'YOUR-API-KEY',
     apiSecret: 'YOUR-API-SECRET'
