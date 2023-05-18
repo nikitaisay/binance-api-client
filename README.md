@@ -279,3 +279,140 @@ const res = await apiClient.spot.trade.cancelExistingOrderAndSendNew({
 });
 ```
 
+
+## Binance spot WebSocket API
+Subscribe to trade data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeTradeStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+});
+```
+Subscribe to kline/candlestick data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeKlineCandlestickStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+    interval: '1m',
+});
+```
+Subscribe to individual symbol mini ticker data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeIndividualSymbolMiniTickerStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+});
+```
+Subscribe to all market mini tickers data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeAllMarketMiniTickersStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+});
+```
+Subscribe to individual symbol ticker data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeIndividualSymbolTickerStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+});
+```
+Subscribe to all market tickers data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeAllMarketTickersStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+});
+```
+Subscribe to individual symbol rolling window statistics data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeIndividualSymbolRollingWindowStatisticsStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+    window_size: '1h',
+});
+```
+Subscribe to all market rolling window statistics data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeAllMarketRollingWindowStatisticsStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    window_size: '1h',
+});
+```
+Subscribe to individual symbol book ticker data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeIndividualSymbolBookTickerStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+   symbol: 'BNBUSDT',
+});
+```
+Subscribe to partial book depth data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribePartialBookDepthStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+    levels: 1,
+});
+```
+Subscribe to diff depth data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeDiffDepthStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+    updateSpeed: '1000ms',
+});
+```
+Subscribe to aggregate trade data stream
+```javascript
+const res = await apiClient.realtime.spot.subscribeAggregateTradeStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+    symbol: 'BNBUSDT',
+});
+```
+
