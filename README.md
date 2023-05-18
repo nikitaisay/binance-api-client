@@ -416,3 +416,14 @@ const res = await apiClient.realtime.spot.subscribeAggregateTradeStream({
 });
 ```
 
+## Binance user data WebSocket API
+Subscribe to user data stream
+```javascript
+const res = await apiClient.realtime.userData.subscribeUserDataStream({
+    callback: (data) => handleData(data),
+    errorCallback: (error) => handleError(error),
+    closeCallback: (code, reason) => handleClosing(code, reason),
+    connectionCallback: () => handleConnection(),
+    id: 1,
+});
+```
