@@ -150,7 +150,7 @@ Get account trade list
 ```javascript
 const res = await apiClient.spot.trade.getAccountTradeList({
     symbol: 'BNBUSDT',
-    orderId: 'order-id'; // This can only be used in combination with symbol.
+    orderId: 'order-id', // This can only be used in combination with symbol.
     startTime: 1684335862286,
     endTime: 1684335862286,
     fromId: 'trade-id-to-fetch-from',
@@ -175,7 +175,7 @@ Create new market order
 ```javascript
 const res = await apiClient.spot.trade.newMarketOrder({
   symbol: 'BNBUSDT',
-  side: "SELL",
+  side: 'SELL',
   quoteOrderQty: 1,
   quantity: 1
 });
@@ -183,13 +183,13 @@ const res = await apiClient.spot.trade.newMarketOrder({
 Create new stop loss limit order
 ```javascript
 const res = await apiClient.spot.trade.newStopLossLimitOrder({
-  symbol: 'BNBUSDT'; // Trading symbol, e.g. BNBUSDT
-  side: "SELL" | "BUY";
-  timeInForce: string; // GTC/FOK/IOC
-  quantity: number; // Order quantity
-  price: number; // Order price
-  stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
-  trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TA
+  symbol: 'BNBUSDT',
+  side: 'BUY',
+  timeInForce: 'GTC', // GTC/FOK/IOC
+  quantity: 1,
+  price: 2345,
+  stopPrice: 2345,
+  trailingDelta: 2345,
 });
 ```
 
