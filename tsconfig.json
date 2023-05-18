@@ -19,7 +19,7 @@
     "typeRoots": ["./node_modules/@types", "./jest.d.ts"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "declarationDir": "dist/types",
+    "declarationDir": "dist/index.d.ts",
   },
   "exclude": [
     "node_modules",
