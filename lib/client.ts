@@ -6,7 +6,7 @@ import { BinanceSpotTradeApi } from "./binance/restApi/spot/trade";
 import { BinanceSpotWalletApi } from "./binance/restApi/spot/wallet";
 import { IApiClientInitializeOptions } from "./binance/restApi/types";
 
-export class BinanceApiClient {
+export class BinanceApi {
   spot: {
     market: BinanceSpotMarketApi;
     trade: BinanceSpotTradeApi;

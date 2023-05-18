@@ -1,1 +1,1 @@
-export { BinanceApiClient } from "./lib/client";
+export { BinanceApi } from "./lib/client";
