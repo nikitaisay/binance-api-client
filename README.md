@@ -90,7 +90,7 @@ const res = await apiClient.spot.market.getSymbolOrderBookTicker({
 Get rolling window price change statistics
 ```javascript
 const res = await apiClient.spot.market.getRollingWindowPriceChangeStatistics({
-    symbol?: 'ETHBTC',
+    symbol: 'ETHBTC',
     symbols: ['ETHBTC', 'BTCUSDT'], // Either symbol or symbols must be provided
     windowSize: '1d', // 1d 1m 1h etc
     type: 'FULL'; // FULL or MINI
@@ -161,3 +161,35 @@ Query current order count usage
 ```javascript
 const res = await apiClient.spot.trade.queryCurrentOrderCountUsage();
 ```
+Create new limit order
+```javascript
+const res = await apiClient.spot.trade.newLimitOrder({
+  symbol: 'BNBUSDT',
+  side: 'SELL',
+  timeInForce: 'GTC', // GTC/FOK/IOC
+  quantity: 1,
+  price: 2400,
+});
+```
+Create new market order
+```javascript
+const res = await apiClient.spot.trade.newMarketOrder({
+  symbol: 'BNBUSDT',
+  side: "SELL",
+  quoteOrderQty: 1,
+  quantity: 1
+});
+```
+Create new stop loss limit order
+```javascript
+const res = await apiClient.spot.trade.newStopLossLimitOrder({
+  symbol: 'BNBUSDT'; // Trading symbol, e.g. BNBUSDT
+  side: "SELL" | "BUY";
+  timeInForce: string; // GTC/FOK/IOC
+  quantity: number; // Order quantity
+  price: number; // Order price
+  stopPrice?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+  trailingDelta?: number; // Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TA
+});
+```
+
