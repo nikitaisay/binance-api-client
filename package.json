@@ -1,5 +1,5 @@
 {
-  "name": "binance_api_client",
+  "name": "@nikita_isay/binance_api_client",
   "version": "1.0.0",
   "description": "JavaScript library for interacting with the Binance API",
   "source": "index.ts",
