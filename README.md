@@ -8,13 +8,13 @@ This project is designed to help you make your own projects that interact with t
 ## Installation
 
 ```bash
-  npm i @nikita_isay/binance_api_client
+  npm i @nikita_isay/binance-api-client
 ```
 
 ## Getting started
 
 ```javascript
-  import { BinanceApi } from '@nikita_isay/binance_api_client';
+  import { BinanceApi } from '@nikita_isay/binance-api-client';
 
   const apiClient = new BinanceApi({
     enableTestnet: false,
