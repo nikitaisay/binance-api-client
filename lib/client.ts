@@ -20,12 +20,15 @@ export class BinanceApi {
   };
 
   constructor(options: IApiClientInitializeOptions) {
-    this.spot.market = new BinanceSpotMarketApi(options);
-    this.spot.trade = new BinanceSpotTradeApi(options);
-    this.spot.dataStream = new BinanceSpotDataStreamApi(options);
-    this.spot.wallet = new BinanceSpotWalletApi(options);
-    
-    this.realtime.spot = new BinanceSpotRealTimeApi(options);
-    this.realtime.userData = new BinanceUserDataRealTimeApi(options);
+    this.spot = {
+      market: new BinanceSpotMarketApi(options),
+      trade: new BinanceSpotTradeApi(options),
+      dataStream: new BinanceSpotDataStreamApi(options),
+      wallet: new BinanceSpotWalletApi(options),
+    };
+    this.realtime = {
+      spot: new BinanceSpotRealTimeApi(options),
+      userData: new BinanceUserDataRealTimeApi(options),
+    };
   }
 }
